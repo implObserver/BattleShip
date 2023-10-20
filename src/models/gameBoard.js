@@ -1,6 +1,6 @@
 import { Cell } from './cell';
 
-export const gameboard = (w = 10, h = 10) => {
+export const Gameboard = (w = 10, h = 10) => {
     const width = w;
     const height = h;
     const container = fillBoard(width, height);
@@ -9,7 +9,11 @@ export const gameboard = (w = 10, h = 10) => {
         return container;
     };
 
-    return { getContainer };
+    const getSize = () => {
+        return { width, height };
+    };
+
+    return { getContainer, getSize };
 };
 
 const fillBoard = (width, height) => {
