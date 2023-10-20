@@ -1,5 +1,5 @@
-import { Ship } from "./models/ship";
+import { Fregat, Ship } from './models/ship';
 
-let r = Ship(4);
+let r = Fregat();
 
-console.log(r.isLive())
+console.log(r.isLive());
