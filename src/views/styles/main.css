@@ -10,6 +10,8 @@
 
 :root {
     font-size: 2vh;
+    --board-width: 0;
+    --board-height: 0;
 }
 
 html {
@@ -18,7 +20,9 @@ html {
 
 .wrapper {
     display: grid;
-    grid-template-rows: min-content 1fr;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    align-content: center;
     max-width: 100%;
     max-height: 100%;
 }
@@ -31,25 +35,23 @@ html {
 .axis-wrapper {
     display: grid;
     width: min-content;
-    grid-template-rows: min-content min-content;
-    border: 1px gray solid;
+    grid-template-rows: min-content 1fr;
 }
 
 .x-axis {
     display: grid;
     justify-content: right;
-    grid-template-columns: repeat(auto-fit, 4vh);
+    grid-template-columns: repeat(var(--board-width), min-content);
 }
 
 .board-wrapper {
     display: grid;
     grid-template-columns: min-content min-content;
-    width: min-content;
 }
 
 .y-axis {
     display: grid;
-    width: min-content;
+    grid-template-rows: repeat(var(--board-height), min-content);
 }
 
 .board {
@@ -64,8 +66,10 @@ html {
 .x-cell,
 .y-cell {
     display: grid;
-    width: 4vh;
-    height: 4vh;
+    width: min(6vh, 4vw);
+    height: min(6vh, 4vw);
+    min-height: 1vw;
+    min-width: 1vw;
 }
 
 .cell {
@@ -74,7 +78,8 @@ html {
 
 .x-cell,
 .y-cell {
-    border: 0.1vh green solid;
+    justify-content: center;
+    align-items: center;
     opacity: 0.5;
 }
 

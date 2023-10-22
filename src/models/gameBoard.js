@@ -1,8 +1,9 @@
 import { Cell } from './cell';
+import { Config } from './gameConfig';
 
-export const Gameboard = (w = 10, h = 10) => {
-    const width = w;
-    const height = h;
+export const Gameboard = () => {
+    const width = Config.Gameboard.width;
+    const height = Config.Gameboard.height;
     const container = fillBoard(width, height);
 
     const getContainer = () => {
@@ -29,3 +30,6 @@ const fillBoard = (width, height) => {
 
     return container;
 };
+
+export const playerGameboard = Gameboard();
+export const aiGameboard = Gameboard();
