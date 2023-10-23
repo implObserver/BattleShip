@@ -4,31 +4,37 @@ import { Config } from './gameConfig';
 export const Gameboard = () => {
     const width = Config.Gameboard.width;
     const height = Config.Gameboard.height;
-    const container = fillBoard(width, height);
+    const containers = fillBoard(width, height);
 
-    const getContainer = () => {
-        return container;
+    const getStructedContainer = () => {
+        return containers.structed;
+    };
+
+    const getUnstructedContainer = () => {
+        return containers.unstructed;
     };
 
     const getSize = () => {
         return { width, height };
     };
 
-    return { getContainer, getSize };
+    return { getStructedContainer, getUnstructedContainer, getSize };
 };
 
 const fillBoard = (width, height) => {
-    let container = [];
-
+    let structed = [];
+    let unstructed = [];
     for (let i = 0; i < height; i++) {
         let line = [];
         for (let j = 0; j < width; j++) {
-            line[j] = Cell(i, j);
+            const cell = Cell(i, j);
+            line[j] = cell;
+            unstructed.push(cell);
         }
-        container[i] = line;
+        structed[i] = line;
     }
 
-    return container;
+    return { structed: structed, unstructed: unstructed };
 };
 
 export const playerGameboard = Gameboard();

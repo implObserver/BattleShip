@@ -20,11 +20,40 @@ html {
 
 .wrapper {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-rows: min-content 1fr;
     justify-items: center;
     align-content: center;
     max-width: 100%;
     max-height: 100%;
+    row-gap: 2vh;
+}
+
+.header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    width: 100%;
+    padding: 2vh;
+}
+
+.title {
+    display: flex;
+    font-size: 3rem;
+}
+
+.tips {
+    display: flex;
+    background-color: rgba(128, 128, 128, 0.2);
+    align-items: center;
+    padding: 1vh;
+    border-radius: min(2vh, 2vw);
+}
+
+.main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-content: center;
+    column-gap: 20vh;
 }
 
 .board__axis-wrapper {
@@ -40,6 +69,7 @@ html {
 
 .x-axis {
     display: grid;
+    grid-gap: 0.1vh;
     justify-content: right;
     grid-template-columns: repeat(var(--board-width), min-content);
 }
@@ -51,29 +81,31 @@ html {
 
 .y-axis {
     display: grid;
+    grid-gap: 0.1vh;
     grid-template-rows: repeat(var(--board-height), min-content);
 }
 
 .board {
     display: grid;
-    grid-template-columns: repeat(10, min-content);
-    grid-template-rows: repeat(10, min-content);
+    grid-template-columns: repeat(var(--board-width), min-content);
+    grid-template-rows: repeat(var(--board-height), min-content);
     height: min-content;
     width: min-content;
+    gap: 1px;
+    box-sizing: border-box;
 }
 
 .cell,
 .x-cell,
-.y-cell {
+.y-cell,
+.ship-cell {
     display: grid;
-    width: min(6vh, 4vw);
-    height: min(6vh, 4vw);
-    min-height: 1vw;
-    min-width: 1vw;
+    width: 5vh;
+    height: 5vh;
 }
 
 .cell {
-    border: 0.1vh blue solid;
+    box-shadow: 0px 0px 0px 1px rgba(0, 0, 255, 0.3);
 }
 
 .x-cell,
@@ -81,6 +113,11 @@ html {
     justify-content: center;
     align-items: center;
     opacity: 0.5;
+}
+
+.ship-cell {
+    display: grid;
+    border: 0.1vh green solid;
 }
 
 span {
