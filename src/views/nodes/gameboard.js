@@ -10,15 +10,5 @@ const viewBoard = (board) => {
     });
 };
 
-export const setHidden = (board) => {
-    const node = board.getNode();
-    node.classList.add('hidden');
-};
-
-export const removeHidden = (board) => {
-    const node = board.getNode();
-    node.classList.remove('hidden');
-};
-
 viewBoard(playerGameboard);
 viewBoard(aiGameboard);
