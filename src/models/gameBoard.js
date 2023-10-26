@@ -1,10 +1,11 @@
 import { Cell } from './cell';
 import { Config } from './gameConfig';
 
-export const Gameboard = () => {
+export const Gameboard = (name) => {
     const width = Config.Gameboard.width;
     const height = Config.Gameboard.height;
     const containers = fillBoard(width, height);
+    const node = document.querySelector(`.${name}`);
 
     const getStructedContainer = () => {
         return containers.structed;
@@ -18,7 +19,11 @@ export const Gameboard = () => {
         return { width, height };
     };
 
-    return { getStructedContainer, getUnstructedContainer, getSize };
+    const getNode = () => {
+        return node;
+    };
+
+    return { getStructedContainer, getUnstructedContainer, getSize, getNode };
 };
 
 const fillBoard = (width, height) => {
@@ -37,5 +42,5 @@ const fillBoard = (width, height) => {
     return { structed: structed, unstructed: unstructed };
 };
 
-export const playerGameboard = Gameboard();
-export const aiGameboard = Gameboard();
+export const playerGameboard = Gameboard('player-board');
+export const aiGameboard = Gameboard('ai-board');

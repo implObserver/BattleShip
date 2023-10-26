@@ -1,11 +1,11 @@
 import { Alphabets } from '../../models/alphabets';
 import { aiGameboard, playerGameboard } from '../../models/gameBoard';
 import { getNode } from './factory';
-import { aiBoardNode, playerBoardNode } from './gameboard';
 
 const alphabet = Alphabets.rus().codes;
 
-const viewAxis = (board, node) => {
+const viewAxis = (board) => {
+    const node = board.getNode();
     const xAxis = node.querySelector('.x-axis');
     const yAxis = node.querySelector('.y-axis');
     const size = board.getSize();
@@ -24,5 +24,5 @@ const viewAxis = (board, node) => {
     }
 };
 
-viewAxis(playerGameboard, playerBoardNode);
-viewAxis(aiGameboard, aiBoardNode);
+viewAxis(playerGameboard);
+viewAxis(aiGameboard);

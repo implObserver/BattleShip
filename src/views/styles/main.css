@@ -28,6 +28,12 @@ html {
     row-gap: 2vh;
 }
 
+span {
+    padding: 1vh;
+    height: min-content;
+    min-width: max-content;
+}
+
 .header {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -37,28 +43,53 @@ html {
 }
 
 .title {
-    display: flex;
+    display: grid;
     font-size: 3rem;
 }
 
 .tips {
-    display: flex;
+    display: grid;
     background-color: rgba(128, 128, 128, 0.2);
     align-items: center;
     padding: 1vh;
     border-radius: min(2vh, 2vw);
+    height: min-content;
 }
 
 .main {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: min-content min-content;
+    height: min-content;
+}
+
+.shipyard {
+    display: grid;
     align-content: center;
-    column-gap: 20vh;
+    grid-template-rows: repeat(4, min-content);
+    row-gap: 6vh;
+    padding: 2vh;
+}
+
+.dock {
+    display: flex;
+    column-gap: 4vh;
+}
+
+.ship {
+    display: flex;
+    cursor: pointer;
 }
 
 .board__axis-wrapper {
     display: grid;
+    grid-template-rows: min-content min-content;
+    row-gap: 2vh;
     width: min-content;
+    height: min-content;
+    padding: 5vh;
 }
 
 .axis-wrapper {
@@ -95,6 +126,12 @@ html {
     box-sizing: border-box;
 }
 
+.marker {
+    display: grid;
+    justify-content: center;
+    padding-left: 5vh;
+}
+
 .cell,
 .x-cell,
 .y-cell,
@@ -102,6 +139,9 @@ html {
     display: grid;
     width: 5vh;
     height: 5vh;
+}
+
+.ai-board {
 }
 
 .cell {
@@ -115,14 +155,38 @@ html {
     opacity: 0.5;
 }
 
-.ship-cell {
-    display: grid;
-    border: 0.1vh green solid;
+.ship {
+    border: 0.5vh blue solid;
+    background-color: rgba(0, 0, 255, 0.1);
 }
 
-span {
-    padding-left: 1vh;
-    padding-right: 1vh;
+.ship-cell {
+    display: grid;
+}
+
+.footer {
+    display: grid;
+    grid-template-columns: min-content min-content;
+    width: 100%;
+    justify-content: center;
+    gap: 4vh;
+}
+
+.random-mode,
+.manual-mode {
     height: min-content;
-    width: min-content;
+    display: grid;
+    border-bottom: 1px dotted blue;
+    color: blue;
+    cursor: pointer;
+}
+
+.random-mode:hover,
+.manual-mode:hover {
+    color: rgb(122, 231, 72);
+    border-bottom: 1px dotted rgb(122, 231, 72);
+}
+
+.hidden {
+    display: none;
 }

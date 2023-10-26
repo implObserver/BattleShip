@@ -29,7 +29,7 @@ export const Cell = (cx = -1, cy = -1, name = 'cell') => {
 
     const getXY = () => {
         return { x, y };
-    }
+    };
 
     return { setTheHit, isHit, setParent, getParent, getCellNode, getXY };
 };

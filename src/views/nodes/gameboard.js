@@ -1,12 +1,8 @@
 import { aiGameboard, playerGameboard } from '../../models/gameBoard';
-import { Boat, Caravel, Drakkar, Fregat } from '../../models/ship';
 
-export const playerBoardNode = document.querySelector('.player-board');
-export const aiBoardNode = document.querySelector('.ai-board');
-
-const viewBoard = (board, node) => {
+const viewBoard = (board) => {
     const container = board.getStructedContainer();
-    const boardwr = node.querySelector('.board');
+    const boardwr = board.getNode().querySelector('.board');
     container.forEach((line) => {
         line.forEach((cell) => {
             boardwr.appendChild(cell.getCellNode());
@@ -14,5 +10,15 @@ const viewBoard = (board, node) => {
     });
 };
 
-viewBoard(playerGameboard, playerBoardNode);
-viewBoard(aiGameboard, aiBoardNode);
+export const setHidden = (board) => {
+    const node = board.getNode();
+    node.classList.add('hidden');
+};
+
+export const removeHidden = (board) => {
+    const node = board.getNode();
+    node.classList.remove('hidden');
+};
+
+viewBoard(playerGameboard);
+viewBoard(aiGameboard);

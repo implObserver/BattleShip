@@ -1,45 +1,62 @@
 <!doctype html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>BattleShip</title>
+    </head>
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BattleShip</title>
-</head>
-
-<body>
-    <div class="wrapper">
-        <div class="header">
-            <div class="title">
-                Морской бой
+    <body>
+        <div class="wrapper">
+            <div class="header">
+                <div class="title">
+                    <span>Морской бой</span>
+                </div>
+                <div class="tips"><span>Разместите корабли</span></div>
             </div>
-            <div class="tips"> Разместите корабли </div>
-        </div>
-        <div class="main">
-            <div class="player-board board__axis-wrapper">
-                <div class="axis-wrapper">
-                    <div class="x-axis"></div>
-                    <div class="board-wrapper">
-                        <div class="y-axis"></div>
-                        <div class="board"></div>
+
+            <div class="main">
+                <div class="shipyard">
+                    <div class="dock fregats"></div>
+                    <div class="dock caravels"></div>
+                    <div class="dock drakkars"></div>
+                    <div class="dock boats"></div>
+                </div>
+
+                <div class="player-board board__axis-wrapper">
+                    <div class="axis-wrapper">
+                        <div class="x-axis"></div>
+                        <div class="board-wrapper">
+                            <div class="y-axis"></div>
+                            <div class="board"></div>
+                        </div>
+                    </div>
+                    <div class="marker">
+                        <span>Ваше поле</span>
+                    </div>
+                    <div class="footer">
+                        <div class="random-mode">
+                            <span>Случайным образом</span>
+                        </div>
+                        <div class="manual-mode">
+                            <span>С чистого листа</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ai-board board__axis-wrapper hidden">
+                    <div class="axis-wrapper">
+                        <div class="x-axis"></div>
+                        <div class="board-wrapper">
+                            <div class="y-axis"></div>
+                            <div class="board"></div>
+                        </div>
+                    </div>
+                    <div class="marker">
+                        <span>Поле противника</span>
                     </div>
                 </div>
             </div>
-
-            <div class="ai-board board__axis-wrapper">
-                <div class="axis-wrapper">
-                    <div class="x-axis"></div>
-                    <div class="board-wrapper">
-                        <div class="y-axis"></div>
-                        <div class="board"></div>
-                    </div>
-                </div>
-            </div>
         </div>
-        <div class="header">
-
-        </div>
-    </div>
-</body>
-
+    </body>
 </html>

@@ -23,20 +23,20 @@ export const Ship = (l) => {
 
         for (let i = 0; i < length; i++) {
             let cell = playerGameboard.getStructedContainer[x][y].getCellNode();
-            cell.classList.add('ship-cell')
+            cell.classList.add('ship-cell');
             container[i] = cell;
 
-            if (orientation = 'horizontal') {
+            if ((orientation = 'horizontal')) {
                 x++;
             } else {
                 y++;
             }
         }
-    }
+    };
 
     const removeContainer = () => {
         setDefaultContainer();
-    }
+    };
 
     const isLive = () => {
         live = false;
@@ -56,7 +56,7 @@ export const Ship = (l) => {
 
     const getContainer = () => {
         return container;
-    }
+    };
 
     setDefaultContainer();
 
