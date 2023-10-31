@@ -8,11 +8,11 @@ export const Gameboard = (name) => {
     const node = document.querySelector(`.${name}`);
 
     const getStructedContainer = () => {
-        return containers.structed;
+        return containers.getStructed();
     };
 
     const getUnstructedContainer = () => {
-        return containers.unstructed;
+        return containers.getUnstructed();
     };
 
     const getSize = () => {
@@ -29,17 +29,26 @@ export const Gameboard = (name) => {
 const fillBoard = (width, height) => {
     let structed = [];
     let unstructed = [];
+
     for (let i = 0; i < height; i++) {
         let line = [];
         for (let j = 0; j < width; j++) {
-            const cell = Cell(i, j);
+            const cell = Cell(j, i);
             line[j] = cell;
             unstructed.push(cell);
         }
         structed[i] = line;
     }
 
-    return { structed: structed, unstructed: unstructed };
+    const getStructed = () => {
+        return structed;
+    }
+
+    const getUnstructed = () => {
+        return unstructed;
+    }
+
+    return { getStructed, getUnstructed };
 };
 
 export const playerGameboard = Gameboard('player-board');

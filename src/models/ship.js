@@ -1,32 +1,35 @@
 import { getNode } from '../views/nodes/factory';
-import { Cell } from './cell';
+import { Cell, Deck } from './cell';
 import { playerGameboard } from './gameBoard';
 
-export const Ship = (l) => {
+export const Ship = (numberOfDecks) => {
     const container = getNode('ship');
-    let length = l;
+    let length = numberOfDecks;
     let body = [];
     let live = true;
-    let orientation = 'horizontal';
+    let orientation = true;
+    let parent = null;
 
     const setDefaultContainer = () => {
         for (let i = 0; i < length; i++) {
-            let cell = Cell(-1, -1, 'ship-cell');
-            body.push(cell);
-            container.appendChild(cell.getCellNode());
+            let deck = Deck(i);
+            body.push(deck);
+            container.appendChild(deck.getCellNode());
         }
     };
 
     const fillContainer = (head) => {
+        if (parent !== null) {
+            removeChilds(parent.getCellNode());
+        }
+        parent = head;
         let x = head.getXY().x;
         let y = head.getXY().y;
+        parent.getCellNode().appendChild(container)
 
         for (let i = 0; i < length; i++) {
-            let cell = playerGameboard.getStructedContainer[x][y].getCellNode();
-            cell.classList.add('ship-cell');
-            container[i] = cell;
-
-            if ((orientation = 'horizontal')) {
+            body[i].setXY(x, y);
+            if ((orientation)) {
                 x++;
             } else {
                 y++;
@@ -41,8 +44,8 @@ export const Ship = (l) => {
     const isLive = () => {
         live = false;
 
-        body.forEach((cell) => {
-            if (!cell.isHit()) {
+        body.forEach((deck) => {
+            if (!deck.isHit()) {
                 live = true;
             }
         });
@@ -58,9 +61,17 @@ export const Ship = (l) => {
         return container;
     };
 
+    const getParent = () => {
+        return parent;
+    }
+
+    const getOrientation = () => {
+        return orientation;
+    }
+
     setDefaultContainer();
 
-    return { isLive, getBody, getContainer };
+    return { isLive, getBody, getContainer, fillContainer, getParent, getOrientation };
 };
 
 export const Fregat = () => {
@@ -82,3 +93,12 @@ export const Boat = () => {
     const prototype = Ship(1);
     return Object.assign(prototype);
 };
+
+
+export const removeChilds = (node) => {
+    if (node !== null) {
+        while (node.firstChild) {
+            node.removeChild(node.lastChild);
+        }
+    }
+}

@@ -31,5 +31,21 @@ export const Cell = (cx = -1, cy = -1, name = 'cell') => {
         return { x, y };
     };
 
-    return { setTheHit, isHit, setParent, getParent, getCellNode, getXY };
+    const setXY = (cx, cy) => {
+        x = cx;
+        y = cy;
+    }
+
+    return { setTheHit, isHit, setParent, getParent, getCellNode, getXY, setXY };
 };
+
+export const Deck = (num) => {
+    const prototype = Cell(-1, -1, 'deck');
+    const number = num;
+
+    const getNumber = () => {
+        return number;
+    }
+
+    return Object.assign(prototype, { getNumber });
+}
