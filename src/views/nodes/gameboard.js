@@ -1,4 +1,5 @@
 import { aiGameboard, playerGameboard } from '../../models/gameBoard';
+import { Config } from '../../models/gameConfig';
 
 const viewBoard = (board) => {
     const container = board.getStructedContainer();
@@ -9,6 +10,11 @@ const viewBoard = (board) => {
         });
     });
 };
+
+const StylePresets = (() => {
+    document.documentElement.style.setProperty('--board-width', Config.Gameboard.width);
+    document.documentElement.style.setProperty('--board-height', Config.Gameboard.height);
+})()
 
 viewBoard(playerGameboard);
 viewBoard(aiGameboard);

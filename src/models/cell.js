@@ -2,7 +2,7 @@ import { getNode } from '../views/nodes/factory';
 
 export const Cell = (cx = -1, cy = -1, name = 'cell') => {
     let hit = false;
-    let parent;
+    let parent = 'free';
     let node = getNode(name);
     let x = cx;
     let y = cy;

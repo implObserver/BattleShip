@@ -163,7 +163,6 @@ span {
     display: grid;
     border: 1px rgba(0, 0, 255, 1) solid;
     background-color: rgba(0, 0, 255, 0.1);
-    grid-template-columns: repeat(4, min-content);
     gap: 1px;
 }
 

@@ -51,5 +51,10 @@ const fillBoard = (width, height) => {
     return { getStructed, getUnstructed };
 };
 
+export const isFitOnGameboardAxe = (coordinate, objLenght, axeLenght) => {
+    return coordinate + objLenght > axeLenght
+        || coordinate < 0;
+}
+
 export const playerGameboard = Gameboard('player-board');
 export const aiGameboard = Gameboard('ai-board');
