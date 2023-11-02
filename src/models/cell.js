@@ -49,3 +49,13 @@ export const Deck = (num) => {
 
     return Object.assign(prototype, { getNumber });
 }
+
+export const MarineSector = (y, x) => {
+    const prototype = Cell(y, x, 'marine-sector');
+
+    const isFree = () => {
+        return prototype.getParent() === 'free';
+    }
+
+    return Object.assign(prototype, { isFree });
+}

@@ -140,15 +140,21 @@ span {
 .cell,
 .x-cell,
 .y-cell,
-.deck {
+.deck,
+.marine-sector {
     display: grid;
     width: 5vh;
     height: 5vh;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .ai-board {}
 
-.cell {
+.cell,
+.marine-sector {
     box-shadow: 0px 0px 0px 1px rgba(0, 0, 255, 0.3);
 }
 

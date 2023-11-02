@@ -1,5 +1,5 @@
 import { Session, resetSession } from "../../models/session";
-import { dragEnd, shipTravers } from "../../models/ship";
+import { shipDragEnd, shipTravers } from "../../models/ship";
 import { viewShip } from "../../views/nodes/ship";
 
 export const setListenersForShips = (ships) => {
@@ -14,31 +14,29 @@ export const setListenersForShips = (ships) => {
         })
 
         ship.getContainer().addEventListener('click', e => {
-            if (ship.getParent() !== null) {
+            if (ship.getHead() !== null) {
                 Session.activeShip = ship;
-                Session.currentElement = ship.getParent().getCellNode();
-                ship.setVertical();
-                shipTravers(Session.activeShip.clearCells, Session.activeShip, Session.activeShip.getParent());
-                shipTravers(ship.checkCells, ship, ship.getParent());
-                if (ship.isLegal()) {
-                    viewShip(ship, ship.getParent());
+                Session.currentElement = ship.getHead().getCellNode();
+                ship.orientationSwitch();
+                let isView = viewShip(ship, ship.getHead());
+
+                if (isView) {
                     ship.setOrientation();
+                    resetSession()
                 } else {
-                    ship.setHorizontal();
+                    ship.orientationSwitch();
                 }
-                resetSession();
             }
         })
 
         ship.getContainer().addEventListener(`dragstart`, (evt) => {
             evt.target.classList.add(`selected`);
             Session.activeShip = ship;
-            shipTravers(Session.activeShip.clearCells, Session.activeShip, Session.activeShip.getParent());
         });
 
         ship.getContainer().addEventListener(`dragend`, (evt) => {
             evt.target.classList.remove(`selected`);
-            dragEnd();
+            shipDragEnd();
             resetSession();
         });
     });

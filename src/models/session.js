@@ -4,7 +4,7 @@ export const Session = (() => {
     let activeShip = null;
     let index = 0;
     let doubleIndex = 'ship';
-    let currentElement;
+    let currentElement = null;
     let playerGameBoardCells = playerGameboard.getStructedContainer();
     return { activeShip, index, doubleIndex, currentElement, playerGameBoardCells }
 })()

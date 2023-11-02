@@ -1,9 +1,10 @@
 import { getNode } from '../views/nodes/factory';
 import { viewShip } from '../views/nodes/ship';
 import { Cell, Deck } from './cell';
-import { Gameboard, isFitOnGameboardAxe, playerGameboard } from './gameBoard';
+import { Gameboard, isFitOnGameboardAxis, playerGameboard } from './gameBoard';
 import { Config } from './gameConfig';
 import { Session } from './session';
+import { ShipWaterAreas } from './waterAreas';
 
 export const Ship = (numberOfDecks) => {
     const container = getNode('ship', 'horizontal');
@@ -11,10 +12,12 @@ export const Ship = (numberOfDecks) => {
     let body = [];
     let live = true;
     let horizontal = true;
-    let parent = null;
+    let head = null;
     let legal = true;
+    let shipWaterAreas = ShipWaterAreas();
+    let occupiedMarineSectors = [];
 
-    const setDefaultContainer = () => {
+    const fillContainer = () => {
         for (let i = 0; i < length; i++) {
             let deck = Deck(i);
             body.push(deck);
@@ -28,30 +31,49 @@ export const Ship = (numberOfDecks) => {
             container.classList.add('vertical')
             horizontal = false;
         } else if (container.classList.contains('vertical')) {
-            container.classList.add('horizontal')
             container.classList.remove('vertical')
+            container.classList.add('horizontal')
             horizontal = true
         }
     }
 
-    const setCoordinates = (i, x, y) => {
-        body[i].setXY(x, y);
+    const takeDownWaterAreas = () => {
+        shipWaterAreas.clearAreas();
     }
 
-    const occupyCells = (i, x, y) => {
-        playerGameboard.getStructedContainer()[y][x].setParent(container);
-    }
+    const launchShipOnWater = (nHead) => {
+        try {
+            let waterAreas = getWaterArea(nHead);
+            let acessibility = waterAreas.checkArea();
+            if (acessibility) {
+                takeDownWaterAreas();
+                shipWaterAreas = waterAreas;
+                shipWaterAreas.occupyArea(shipWaterAreas.getAreaUnderTheShip(), container);
+                shipWaterAreas.occupyArea(shipWaterAreas.getAreaUnderTheShip(), container);
+            }
 
-    const clearCells = (i, x, y) => {
-        playerGameboard.getStructedContainer()[y][x].setParent('free');
-    }
-
-    const checkCells = (i, x, y) => {
-        console.log(playerGameboard.getStructedContainer()[y][x].getParent())
-        let isLegal = playerGameboard.getStructedContainer()[y][x].getParent() === 'free';
-        if (!isLegal) {
-            legal = false;
+            return acessibility;
+        } catch (error) {
+            console.log(error)
+            return false;
         }
+    }
+
+    const getWaterArea = (head, board) => {
+        let areas = ShipWaterAreas();
+        let x = head.getXY().x;
+        let y = head.getXY().y;
+        let necessarySectors = [];
+        for (let i = 0; i < length; i++) {
+            necessarySectors.push(playerGameboard.getStructedContainer()[y][x]);
+            if (horizontal) {
+                x++;
+            } else {
+                y++;
+            }
+        }
+        areas.setAreas(necessarySectors);
+        return areas;
     }
 
     const isLive = () => {
@@ -74,12 +96,12 @@ export const Ship = (numberOfDecks) => {
         return container;
     };
 
-    const getParent = () => {
-        return parent;
+    const getHead = () => {
+        return head;
     }
 
-    const setParent = (nParent) => {
-        parent = nParent;
+    const setHead = (nHead) => {
+        head = nHead;
     }
 
     const isHorizontal = () => {
@@ -94,17 +116,17 @@ export const Ship = (numberOfDecks) => {
         legal = true;
     }
 
-    const setVertical = () => {
-        horizontal = false;
+    const orientationSwitch = () => {
+        horizontal = !horizontal;
     }
 
-    const setHorizontal = () => {
-        horizontal = true;
+    const getSectors = () => {
+        return occupiedMarineSectors;
     }
 
-    setDefaultContainer();
+    fillContainer();
 
-    return { setVertical, setHorizontal, setOrientation, isLive, getBody, getContainer, getParent, setParent, isHorizontal, setCoordinates, occupyCells, clearCells, checkCells, isLegal, setLegal };
+    return { getSectors, takeDownWaterAreas, launchShipOnWater, orientationSwitch, setOrientation, isLive, getBody, getContainer, getHead, setHead, isHorizontal, isLegal, setLegal };
 };
 
 export const Fregat = () => {
@@ -127,13 +149,13 @@ export const Boat = () => {
     return Object.assign(prototype);
 };
 
-export const dragEnd = () => {
+export const shipDragEnd = () => {
     let isMoveable = false;
     let isAlterMovable = false;
     let body = Session.activeShip.getBody();
 
     if (Session.currentElement !== undefined) {
-        isMoveable = Session.currentElement.classList.contains(`cell`);
+        isMoveable = Session.currentElement.classList.contains(`marine-sector`);
         isAlterMovable = Session.currentElement.classList.contains(`deck`);
     }
 
@@ -156,7 +178,7 @@ export const dragEnd = () => {
             }
         }
         if (Session.doubleIndex !== 'ship') {
-            let head = Session.activeShip.getParent().getCellNode();
+            let head = Session.activeShip.getHead().getCellNode();
             for (let i = 0; i < Config.Gameboard.height; i++) {
                 for (let j = 0; j < Config.Gameboard.width; j++) {
                     if (Session.playerGameBoardCells[j][i].getCellNode() === head) {
@@ -182,11 +204,12 @@ const getData = (index, x, y) => {
 }
 
 const viewShipOnBoard = (coordinate, x, y, shipLenght, axeLenght) => {
-    if (isFitOnGameboardAxe(coordinate, shipLenght, axeLenght)) {
+    console.log(`${coordinate} ${shipLenght} ${axeLenght}`)
+    if (isFitOnGameboardAxis(coordinate, shipLenght, axeLenght)) {
         return;
     } else {
-        console.log(Session.playerGameBoardCells[x][y].getParent())
         if (Session.playerGameBoardCells[x][y].getParent() === 'free'
+            || Session.playerGameBoardCells[x][y].getParent() == Session.activeShip.getContainer()
         ) {
             viewShip(Session.activeShip, Session.playerGameBoardCells[x][y]);
         }
@@ -194,21 +217,7 @@ const viewShipOnBoard = (coordinate, x, y, shipLenght, axeLenght) => {
 }
 
 export const shipTravers = (func, ship, head) => {
-    ship.setLegal();
-    if (head !== null) {
-        let x = head.getXY().x;
-        let y = head.getXY().y;
-        let length = ship.getBody().length;
 
-        for (let i = 0; i < length; i++) {
-            func(i, x, y);
-            if ((ship.isHorizontal())) {
-                x++;
-            } else {
-                y++;
-            }
-        }
-    }
 }
 
 export const removeChilds = (node) => {

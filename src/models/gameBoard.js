@@ -1,4 +1,4 @@
-import { Cell } from './cell';
+import { Cell, MarineSector } from './cell';
 import { Config } from './gameConfig';
 
 export const Gameboard = (name) => {
@@ -33,7 +33,7 @@ const fillBoard = (width, height) => {
     for (let i = 0; i < height; i++) {
         let line = [];
         for (let j = 0; j < width; j++) {
-            const cell = Cell(j, i);
+            const cell = MarineSector(j, i);
             line[j] = cell;
             unstructed.push(cell);
         }
@@ -51,7 +51,7 @@ const fillBoard = (width, height) => {
     return { getStructed, getUnstructed };
 };
 
-export const isFitOnGameboardAxe = (coordinate, objLenght, axeLenght) => {
+export const isFitOnGameboardAxis = (coordinate, objLenght, axeLenght) => {
     return coordinate + objLenght > axeLenght
         || coordinate < 0;
 }
