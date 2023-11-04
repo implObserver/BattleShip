@@ -1,11 +1,9 @@
 import { getNode } from '../views/nodes/factory';
 
-export const Cell = (cx = -1, cy = -1, name = 'cell') => {
+export const Cell = (x = -1, y = -1, name = 'cell') => {
     let hit = false;
     let parent = 'free';
-    let node = getNode(name);
-    let x = cx;
-    let y = cy;
+    let node = getNode(name, 'cell');
 
     const setTheHit = () => {
         hit = true;
@@ -31,17 +29,16 @@ export const Cell = (cx = -1, cy = -1, name = 'cell') => {
         return { x, y };
     };
 
-    const setXY = (cx, cy) => {
-        x = cx;
-        y = cy;
+    const setXY = (nx, ny) => {
+        x = nx;
+        y = ny;
     }
 
     return { setTheHit, isHit, setParent, getParent, getCellNode, getXY, setXY };
 };
 
-export const Deck = (num) => {
+export const Deck = (number) => {
     const prototype = Cell(-1, -1, 'deck');
-    const number = num;
 
     const getNumber = () => {
         return number;
@@ -52,10 +49,23 @@ export const Deck = (num) => {
 
 export const MarineSector = (y, x) => {
     const prototype = Cell(y, x, 'marine-sector');
+    let occupant = 'free';
 
-    const isFree = () => {
-        return prototype.getParent() === 'free';
+    const occupy = (nOccupant) => {
+        occupant = nOccupant;
     }
 
-    return Object.assign(prototype, { isFree });
+    const clear = () => {
+        occupant = 'free';
+    }
+
+    const isFree = () => {
+        return occupant === 'free';
+    }
+
+    const getOccupant = () => {
+        return occupant;
+    }
+
+    return Object.assign(prototype, { isFree, clear, occupy, getOccupant });
 }

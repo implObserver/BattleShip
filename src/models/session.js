@@ -5,8 +5,8 @@ export const Session = (() => {
     let index = 0;
     let doubleIndex = 'ship';
     let currentElement = null;
-    let playerGameBoardCells = playerGameboard.getStructedContainer();
-    return { activeShip, index, doubleIndex, currentElement, playerGameBoardCells }
+
+    return { activeShip, index, doubleIndex, currentElement }
 })()
 
 export const resetSession = () => {

@@ -1,82 +1,78 @@
-import { playerGameboard } from "./gameBoard"
-
 export const CellHandler = () => {
-    const getBefore = (x, y) => {
+    const getBefore = (x, y, parent) => {
         try {
-            return playerGameboard.getStructedContainer()[y][--x]
+            return parent[y][--x]
         } catch (error) {
-            return playerGameboard.getStructedContainer()[y][++x]
+            return parent[y][++x]
         }
     }
 
-    const getAfter = (x, y) => {
+    const getAfter = (x, y, parent) => {
         try {
-            return playerGameboard.getStructedContainer()[y][++x]
+            return parent[y][++x]
         } catch (error) {
-            return playerGameboard.getStructedContainer()[y][--x]
+            return parent[y][--x]
         }
     }
 
-    const getOver = (x, y) => {
+    const getOver = (x, y, parent) => {
         try {
-            return playerGameboard.getStructedContainer()[--y][x]
+            return parent[--y][x]
         } catch (error) {
-            return playerGameboard.getStructedContainer()[++y][x]
+            return parent[++y][x]
         }
     }
 
-    const getUnder = (x, y) => {
+    const getUnder = (x, y, parent) => {
         try {
-            return playerGameboard.getStructedContainer()[++y][x]
+            return parent[++y][x]
         } catch (error) {
-            return playerGameboard.getStructedContainer()[--y][x]
+            return parent[--y][x]
         }
     }
 
-    const getDiag1 = (x, y) => {
+    const getDiag1 = (x, y, parent) => {
         try {
-            return playerGameboard.getStructedContainer()[--y][--x]
+            return parent[--y][--x]
         } catch (error) {
-            return playerGameboard.getStructedContainer()[++y][++x]
+            return parent[++y][++x]
         }
     }
 
-    const getDiag2 = (x, y) => {
+    const getDiag2 = (x, y, parent) => {
         try {
-            return playerGameboard.getStructedContainer()[--y][++x]
+            return parent[--y][++x]
         } catch (error) {
-            return playerGameboard.getStructedContainer()[++y][--x]
+            return parent[++y][--x]
         }
     }
 
-    const getDiag3 = (x, y) => {
+    const getDiag3 = (x, y, parent) => {
         try {
-            return playerGameboard.getStructedContainer()[++y][++x]
+            return parent[++y][++x]
         } catch (error) {
-            return playerGameboard.getStructedContainer()[--y][--x]
+            return parent[--y][--x]
         }
     }
 
-    const getDiag4 = (x, y) => {
+    const getDiag4 = (x, y, parent) => {
         try {
-            return playerGameboard.getStructedContainer()[++y][--x]
+            return parent[++y][--x]
         } catch (error) {
-            return playerGameboard.getStructedContainer()[--y][++x]
+            return parent[--y][++x]
         }
     }
 
-    const getCellAroundArea = (x, y) => {
-        console.log(x, y)
+    const getCellAroundArea = (x, y, parent) => {
         let cells = [];
-        cells.push(getBefore(x, y));
-        cells.push(getAfter(x, y));
-        cells.push(getOver(x, y));
-        cells.push(getUnder(x, y));
-        cells.push(getDiag1(x, y));
-        cells.push(getDiag2(x, y));
-        cells.push(getDiag3(x, y));
-        cells.push(getDiag4(x, y));
-        console.log(cells)
+        cells.push(getBefore(x, y, parent));
+        cells.push(getAfter(x, y, parent));
+        cells.push(getOver(x, y, parent));
+        cells.push(getUnder(x, y, parent));
+        cells.push(getDiag1(x, y, parent));
+        cells.push(getDiag2(x, y, parent));
+        cells.push(getDiag3(x, y, parent));
+        cells.push(getDiag4(x, y, parent));
         return cells;
     }
 

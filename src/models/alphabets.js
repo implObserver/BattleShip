@@ -1,6 +1,4 @@
-const Alphabet = (fCharCode, lCharCode) => {
-    const firstCharCode = fCharCode;
-    const lastCharCode = lCharCode;
+const Alphabet = (firstCharCode, lastCharCode) => {
     const long = lastCharCode - firstCharCode + 1;
     const codes = Array.from(Array(long).keys(), (x) => x + firstCharCode);
 

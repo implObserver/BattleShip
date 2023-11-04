@@ -1,47 +1,44 @@
-import { Config } from '../../models/gameConfig';
-import { Boat, Caravel, Drakkar, Fregat } from '../../models/ship';
-import { Shipyard, playerShipyardModel } from '../../models/shipyard';
 import { setDraggableForShips } from '../dragAndDrop/ships';
 
-export const viewShipyard = () => {
-    fillShipyardNode();
+export const viewShipyard = (shipyard) => {
+    fillShipyardNode(shipyard);
     setDraggableForShips();
 };
 
-const fillShipyardNode = () => {
-    addFregates();
-    addCaravels();
-    addDrakkars();
-    addBoats();
+const fillShipyardNode = (shipyard) => {
+    addFregates(shipyard);
+    addCaravels(shipyard);
+    addDrakkars(shipyard);
+    addBoats(shipyard);
 };
 
-const addFregates = () => {
+const addFregates = (shipyard) => {
     const dockNode = document.querySelector('.fregats');
-    const ships = playerShipyardModel.getDockWithFregats().getShips();
+    const ships = shipyard.getDockWithFregats().getShips();
     for (let i = 0; i < ships.length; i++) {
         dockNode.appendChild(ships[i].getContainer());
     }
 };
 
-const addCaravels = () => {
+const addCaravels = (shipyard) => {
     const dockNode = document.querySelector('.caravels');
-    const ships = playerShipyardModel.getDockWithCaravels().getShips();
+    const ships = shipyard.getDockWithCaravels().getShips();
     for (let i = 0; i < ships.length; i++) {
         dockNode.appendChild(ships[i].getContainer());
     }
 };
 
-const addDrakkars = () => {
+const addDrakkars = (shipyard) => {
     const dockNode = document.querySelector('.drakkars');
-    const ships = playerShipyardModel.getDockWithDrakkars().getShips();
+    const ships = shipyard.getDockWithDrakkars().getShips();
     for (let i = 0; i < ships.length; i++) {
         dockNode.appendChild(ships[i].getContainer());
     }
 };
 
-const addBoats = () => {
+const addBoats = (shipyard) => {
     const dockNode = document.querySelector('.boats');
-    const ships = playerShipyardModel.getDockWithBoats().getShips();
+    const ships = shipyard.getDockWithBoats().getShips();
     for (let i = 0; i < ships.length; i++) {
         dockNode.appendChild(ships[i].getContainer());
     }

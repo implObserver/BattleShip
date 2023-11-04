@@ -1,7 +1,7 @@
 import { CellHandler } from "./cellHandler";
 import { Session } from "./session";
 
-export const ShipWaterAreas = () => {
+export const ShipWaterAreas = (player) => {
     let underTheShip = [];
     let aroundTheShip = [];
 
@@ -21,9 +21,10 @@ export const ShipWaterAreas = () => {
     const setAreaAroundTheShip = () => {
         let handler = CellHandler();
         let areas = [];
+        let parent = player.getGameboard().getStructedContainer()
         underTheShip.forEach(sector => {
             let coordinates = sector.getXY();
-            let area = handler.getCellAroundArea(coordinates.x, coordinates.y)
+            let area = handler.getCellAroundArea(coordinates.x, coordinates.y, parent);
             areas = areas.concat(area);
         })
         return Array.from(new Set(areas)).filter(x => !underTheShip.includes(x) && x !== undefined);
@@ -31,7 +32,7 @@ export const ShipWaterAreas = () => {
 
     const occupyArea = (area, occupant) => {
         area.forEach(sector => {
-            sector.setParent(occupant);
+            sector.occupy(occupant);
         })
     }
 
@@ -39,7 +40,7 @@ export const ShipWaterAreas = () => {
         let acessibility = true;
         let areas = underTheShip.concat(aroundTheShip);
         areas.forEach(sector => {
-            if (!sector.isFree() && sector.getParent() !== Session.activeShip.getContainer()) {
+            if (!sector.isFree() && sector.getOccupant() !== Session.activeShip.getContainer()) {
                 acessibility = false;
             }
         })
@@ -49,7 +50,7 @@ export const ShipWaterAreas = () => {
     const clearAreas = () => {
         let areas = underTheShip.concat(aroundTheShip);
         areas.forEach(sector => {
-            sector.setParent('free');
+            sector.occupy('free');
         })
     }
 

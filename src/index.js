@@ -1,15 +1,13 @@
 import './views/styles/main.css';
-import './views/nodes/gameboard';
-import './views/nodes/axis';
+import { Profile } from './models/player';
+import { viewProfile } from './views/nodes/profile';
 import { setListenersForLinks } from './controllers/listeners/forLinks';
-import { fillShipyard, viewShipyard } from './views/nodes/shipyard';
-import {
-    forFregats,
-    setListenersForFregats,
-    setListenersForShips,
-} from './controllers/listeners/forShips';
-import { playerShipyardModel } from './models/shipyard';
-
+import { viewShipyard } from './views/nodes/shipyard';
+import { setListenersForShips } from './controllers/listeners/forShips';
+export const player1 = Profile(1, 'Player1', 'player-board');
+export const ai = Profile(0, 'AI', 'ai-board');
+viewProfile(player1);
+viewProfile(ai);
+viewShipyard(player1.getShipyard())
 setListenersForLinks();
-viewShipyard();
-setListenersForShips(playerShipyardModel.getDockWithFregats().getShips());
+setListenersForShips(player1.getShipyard().getDockWithFregats().getShips());

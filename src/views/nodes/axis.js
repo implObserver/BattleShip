@@ -4,7 +4,7 @@ import { getNode } from './factory';
 
 const alphabet = Alphabets.rus().codes;
 
-const viewAxis = (board) => {
+export const viewAxis = (board) => {
     const node = board.getNode();
     const xAxis = node.querySelector('.x-axis');
     const yAxis = node.querySelector('.y-axis');
@@ -23,6 +23,3 @@ const viewAxis = (board) => {
         yAxis.appendChild(cell);
     }
 };
-
-viewAxis(playerGameboard);
-viewAxis(aiGameboard);

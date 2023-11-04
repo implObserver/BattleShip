@@ -1,4 +1,4 @@
-import { aiGameboard } from '../../models/gameBoard';
+import { ai } from '../..';
 import { removeHidden, setHidden } from '../../views/animations/changeVisible';
 
 export const setListenersForLinks = () => {
@@ -7,12 +7,13 @@ export const setListenersForLinks = () => {
     const shipyard = document.querySelector('.shipyard');
 
     const openManualMode = manualModeLink.addEventListener('click', (e) => {
-        setHidden(aiGameboard.getNode());
+        console.log(ai.getGameboard().getNode())
+        setHidden(ai.getGameboard().getNode());
         removeHidden(shipyard);
     });
 
     const openRandomMode = randomModeLink.addEventListener('click', (e) => {
-        removeHidden(aiGameboard.getNode());
+        removeHidden(ai.getGameboard().getNode());
         setHidden(shipyard);
     });
 };

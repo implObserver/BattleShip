@@ -1,7 +1,8 @@
 import { Cell, MarineSector } from './cell';
 import { Config } from './gameConfig';
+import { Marker } from './player';
 
-export const Gameboard = (name) => {
+export const Gameboard = (name, player) => {
     const width = Config.Gameboard.width;
     const height = Config.Gameboard.height;
     const containers = fillBoard(width, height);
@@ -23,7 +24,11 @@ export const Gameboard = (name) => {
         return node;
     };
 
-    return { getStructedContainer, getUnstructedContainer, getSize, getNode };
+    const getPlayer = () => {
+        return player;
+    }
+
+    return { getPlayer, getStructedContainer, getUnstructedContainer, getSize, getNode };
 };
 
 const fillBoard = (width, height) => {
@@ -55,6 +60,3 @@ export const isFitOnGameboardAxis = (coordinate, objLenght, axeLenght) => {
     return coordinate + objLenght > axeLenght
         || coordinate < 0;
 }
-
-export const playerGameboard = Gameboard('player-board');
-export const aiGameboard = Gameboard('ai-board');
