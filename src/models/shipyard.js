@@ -1,6 +1,4 @@
-import { playerGameboard } from './gameBoard';
 import { Config } from './gameConfig';
-import { Marker } from './player';
 import { Boat, Caravel, Drakkar, Fregat } from './ship';
 
 export const Shipyard = (player) => {

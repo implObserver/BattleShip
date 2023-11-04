@@ -3,12 +3,11 @@ import { viewShip } from '../views/nodes/ship';
 import { Deck } from './cell';
 import { isFitOnGameboardAxis } from './gameBoard';
 import { Config } from './gameConfig';
-import { Marker } from './player';
 import { Session } from './session';
 import { ShipWaterAreas } from './waterAreas';
 
 export const Ship = (length, player) => {
-    
+
     const container = getNode('ship', 'horizontal');
     let body = [];
     let live = true;

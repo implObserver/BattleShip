@@ -1,5 +1,5 @@
 import { Session, resetSession } from "../../models/session";
-import { shipDragEnd, shipTravers } from "../../models/ship";
+import { shipDragEnd } from "../../models/ship";
 import { viewShip } from "../../views/nodes/ship";
 
 export const setListenersForShips = (ships) => {

@@ -1,6 +1,5 @@
-import { Cell, MarineSector } from './cell';
+import { MarineSector } from './cell';
 import { Config } from './gameConfig';
-import { Marker } from './player';
 
 export const Gameboard = (name, player) => {
     const width = Config.Gameboard.width;

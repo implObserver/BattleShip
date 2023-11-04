@@ -7,7 +7,6 @@ export const setListenersForLinks = () => {
     const shipyard = document.querySelector('.shipyard');
 
     const openManualMode = manualModeLink.addEventListener('click', (e) => {
-        console.log(ai.getGameboard().getNode())
         setHidden(ai.getGameboard().getNode());
         removeHidden(shipyard);
     });

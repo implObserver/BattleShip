@@ -6,12 +6,15 @@
     border: 0;
     height: 100%;
     box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
 
 :root {
     font-size: 2vh;
     --board-width: 0;
     --board-height: 0;
+    --cell-size: 5vh;
 }
 
 html {
@@ -105,9 +108,9 @@ span {
 
 .x-axis {
     display: grid;
-    grid-gap: 0.1vh;
-    justify-content: right;
-    grid-template-columns: repeat(var(--board-width), min-content);
+    width: min-content;
+    padding-left: var(--cell-size);
+    grid-template-columns: repeat(var(--board-width), 2fr);
 }
 
 .board-wrapper {
@@ -117,18 +120,14 @@ span {
 
 .y-axis {
     display: grid;
-    grid-gap: 0.1vh;
-    grid-template-rows: repeat(var(--board-height), min-content);
+    grid-template-rows: repeat(var(--board-height), 2fr);
 }
 
 .board {
-    display: grid;
-    grid-template-columns: repeat(var(--board-width), min-content);
-    grid-template-rows: repeat(var(--board-height), min-content);
-    height: min-content;
-    width: min-content;
-    gap: 1px;
-    box-sizing: border-box;
+    display: inline-grid;
+    grid-template-columns: repeat(var(--board-width), 2fr);
+    grid-template-rows: repeat(var(--board-height), 2fr);
+    border: 0.1vh blue solid;
 }
 
 .marker {
@@ -137,25 +136,14 @@ span {
     padding-left: 5vh;
 }
 
-.cell,
-.x-cell,
-.y-cell,
-.deck,
-.marine-sector {
+.cell {
     display: grid;
-    width: 5vh;
-    height: 5vh;
+    width: var(--cell-size);
+    height: var(--cell-size);
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-}
-
-.ai-board {}
-
-.cell,
-.marine-sector {
-    box-shadow: 0px 0px 0px 1px rgba(0, 0, 255, 0.3);
 }
 
 .x-cell,
@@ -163,21 +151,27 @@ span {
     justify-content: center;
     align-items: center;
     opacity: 0.5;
+    border: 0px blue solid;
+}
+
+.marine-sector {
+    border: 0.1vh rgba(0, 0, 255, 0.1) solid;
 }
 
 .ship {
     display: grid;
-    border: 1px rgba(0, 0, 255, 1) solid;
+    width: min-content;
+    height: min-content;
     background-color: rgba(0, 0, 255, 0.1);
-    gap: 1px;
+    border: 0.1vh rgba(0, 0, 255, 1) solid;
 }
 
 .horizontal {
-    grid-template-columns: repeat(4, min-content);
+    grid-template-columns: repeat(4, 2fr);
 }
 
 .vertical {
-    grid-template-rows: repeat(4, min-content);
+    grid-template-rows: repeat(4, 2fr);
 }
 
 .deck {

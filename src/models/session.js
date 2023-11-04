@@ -1,5 +1,3 @@
-import { playerGameboard } from "./gameBoard";
-
 export const Session = (() => {
     let activeShip = null;
     let index = 0;

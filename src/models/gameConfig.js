@@ -7,7 +7,7 @@ export const Config = (() => {
 
     const Elements = (() => {
         const numberOf = (() => {
-            const fregates = 2;
+            const fregates = 1;
             const caravels = 2;
             const drakkars = 3;
             const boats = 4;
@@ -19,3 +19,4 @@ export const Config = (() => {
 
     return { Gameboard, Elements };
 })();
+

@@ -11,3 +11,6 @@ viewProfile(ai);
 viewShipyard(player1.getShipyard())
 setListenersForLinks();
 setListenersForShips(player1.getShipyard().getDockWithFregats().getShips());
+setListenersForShips(player1.getShipyard().getDockWithCaravels().getShips());
+setListenersForShips(player1.getShipyard().getDockWithDrakkars().getShips());
+setListenersForShips(player1.getShipyard().getDockWithBoats().getShips());

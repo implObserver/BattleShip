@@ -1,13 +1,10 @@
 import { Config } from '../../models/gameConfig';
 
 export const viewBoard = (board) => {
-    console.log(board.getNode())
-    const container = board.getStructedContainer();
+    const container = board.getUnstructedContainer();
     const boardwr = board.getNode().querySelector('.board');
-    container.forEach((line) => {
-        line.forEach((cell) => {
+    container.forEach((cell) => {
             boardwr.appendChild(cell.getCellNode());
-        });
     });
 };
 
