@@ -63,7 +63,7 @@ export const CellHandler = () => {
         }
     }
 
-    const getCellAroundArea = (x, y, parent) => {
+    const getCellAroundArea = (x, y, parent, container) => {
         let cells = [];
         cells.push(getBefore(x, y, parent));
         cells.push(getAfter(x, y, parent));
@@ -73,6 +73,7 @@ export const CellHandler = () => {
         cells.push(getDiag2(x, y, parent));
         cells.push(getDiag3(x, y, parent));
         cells.push(getDiag4(x, y, parent));
+        cells = cells.filter(cell => cell !== undefined);
         return cells;
     }
 

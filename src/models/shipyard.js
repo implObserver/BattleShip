@@ -6,6 +6,7 @@ export const Shipyard = (player) => {
     const caravels = Dock(Config.Elements.numberOf.caravels, 'Caravel', player);
     const drakkars = Dock(Config.Elements.numberOf.drakkars, 'Drakkar', player);
     const boats = Dock(Config.Elements.numberOf.boats, 'Boat', player);
+    const ships = fregats.getShips().concat(caravels.getShips().concat(drakkars.getShips().concat(boats.getShips())));
 
     const getDockWithFregats = () => {
         return fregats;
@@ -27,7 +28,17 @@ export const Shipyard = (player) => {
         return player;
     }
 
-    return { getPlayer, getDockWithFregats, getDockWithCaravels, getDockWithDrakkars, getDockWithBoats };
+    const getAllShips = () => {
+        return ships;
+    }
+
+    const reset = () => {
+        ships.forEach(ship => {
+            ship.reset()
+        })
+    }
+
+    return { reset, getAllShips, getPlayer, getDockWithFregats, getDockWithCaravels, getDockWithDrakkars, getDockWithBoats };
 };
 
 const Dock = (count, shipBluePrint, player) => {

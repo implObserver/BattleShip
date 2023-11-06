@@ -1,3 +1,4 @@
+import { player1 } from "../..";
 import { Session, resetSession } from "../../models/session";
 import { shipDragEnd } from "../../models/ship";
 import { viewShip } from "../../views/nodes/ship";
@@ -31,6 +32,9 @@ export const setListenersForShips = (ships) => {
 
         ship.getContainer().addEventListener(`dragstart`, (evt) => {
             evt.target.classList.add(`selected`);
+            player1.getGameboard().getUnstructedContainer().forEach(cell => {
+                cell.getCellNode().style.border = ''
+            })
             Session.activeShip = ship;
         });
 

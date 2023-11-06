@@ -14,7 +14,7 @@ export const Ship = (length, player) => {
     let horizontal = true;
     let head = null;
     let legal = true;
-    let shipWaterAreas = ShipWaterAreas();
+    let shipWaterAreas = ShipWaterAreas(player, container);
 
     const fillContainer = () => {
         for (let i = 0; i < length; i++) {
@@ -26,13 +26,9 @@ export const Ship = (length, player) => {
 
     const setOrientation = () => {
         if (container.classList.contains('horizontal')) {
-            container.classList.remove('horizontal')
-            container.classList.add('vertical')
-            horizontal = false;
+            setVertical()
         } else if (container.classList.contains('vertical')) {
-            container.classList.remove('vertical')
-            container.classList.add('horizontal')
-            horizontal = true
+            setHorizontal()
         }
     }
 
@@ -47,8 +43,7 @@ export const Ship = (length, player) => {
             if (acessibility) {
                 takeDownWaterAreas();
                 shipWaterAreas = waterAreas;
-                shipWaterAreas.occupyArea(shipWaterAreas.getAreaUnderTheShip(), container);
-                shipWaterAreas.occupyArea(shipWaterAreas.getAreaUnderTheShip(), container);
+                shipWaterAreas.occupyAreas();
             }
 
             return acessibility;
@@ -59,8 +54,8 @@ export const Ship = (length, player) => {
     }
 
     const getWaterArea = (head) => {
-        let board = getBoard();
-        let areas = ShipWaterAreas(player);
+        let board = getBoard().getStructedContainer();
+        let areas = ShipWaterAreas(player, container);
         let x = head.getXY().x;
         let y = head.getXY().y;
         let necessarySectors = [];
@@ -120,13 +115,39 @@ export const Ship = (length, player) => {
         horizontal = !horizontal;
     }
 
+    const setVertical = () => {
+        container.classList.remove('horizontal')
+        container.classList.add('vertical')
+        container.style.height = `${length * 5}vh`;
+        container.style.width = `5vh`;
+        horizontal = false;
+    }
+
+    const setHorizontal = () => {
+        container.classList.remove('vertical')
+        container.classList.add('horizontal')
+        container.style.width = `${length * 5}vh`;
+        container.style.height = `5vh`;
+        horizontal = true
+    }
+
     const getBoard = () => {
-        return player.getGameboard().getStructedContainer();
+        return player.getGameboard();
+    }
+
+    const reset = () => {
+        setHorizontal();
+        if (head !== null) {
+            head.getCellNode().removeChild(container);
+            head = null;
+        }
+        shipWaterAreas.clearAreas();
+        shipWaterAreas = ShipWaterAreas(player, container)
     }
 
     fillContainer();
 
-    return { getBoard, takeDownWaterAreas, launchShipOnWater, orientationSwitch, setOrientation, isLive, getBody, getContainer, getHead, setHead, isHorizontal, isLegal, setLegal };
+    return { reset, setHorizontal, setVertical, getBoard, takeDownWaterAreas, launchShipOnWater, orientationSwitch, setOrientation, isLive, getBody, getContainer, getHead, setHead, isHorizontal, isLegal, setLegal };
 };
 
 export const Fregat = (marker) => {
@@ -153,21 +174,21 @@ export const shipDragEnd = () => {
     let isMoveable = false;
     let isAlterMovable = false;
     let body = Session.activeShip.getBody();
-
-    if (Session.currentElement !== undefined) {
+    if (Session.currentElement !== null) {
         isMoveable = Session.currentElement.classList.contains(`marine-sector`);
         isAlterMovable = Session.currentElement.classList.contains(`deck`);
     }
 
     if (!isMoveable && !isAlterMovable) {
-        return;
+        console.log('what')
+        return false;
     }
 
     if (isMoveable) {
         for (let i = 0; i < Config.Gameboard.height; i++) {
             for (let j = 0; j < Config.Gameboard.width; j++) {
-                if (Session.activeShip.getBoard()[j][i].getCellNode() === Session.currentElement) {
-                    addShipOnBoard(Session.index, j, i, body.length);
+                if (Session.activeShip.getBoard().getStructedContainer()[j][i].getCellNode() === Session.currentElement) {
+                    return addShipOnBoard(Session.index, j, i, body.length);
                 }
             }
         }
@@ -181,20 +202,21 @@ export const shipDragEnd = () => {
             let head = Session.activeShip.getHead().getCellNode();
             for (let i = 0; i < Config.Gameboard.height; i++) {
                 for (let j = 0; j < Config.Gameboard.width; j++) {
-                    if (Session.activeShip.getBoard()[j][i].getCellNode() === head) {
-                        addShipOnBoard(Session.doubleIndex, j, i, body.length)
+                    if (Session.activeShip.getBoard().getStructedContainer()[j][i].getCellNode() === head) {
+                        return addShipOnBoard(Session.doubleIndex, j, i, body.length)
                     }
                 }
             }
         } else {
-            return;
+            console.log('WHAT')
+            return false;
         }
     }
 }
 
 const addShipOnBoard = (index, y, x, shipLenght) => {
     let data = getData(index, y, x);
-    viewShipOnBoard(data.coordinate, data.x, data.y, shipLenght, data.axeLenght)
+    return viewShipOnBoard(data.coordinate, data.x, data.y, shipLenght, data.axeLenght)
 }
 
 const getData = (index, x, y) => {
@@ -205,13 +227,10 @@ const getData = (index, x, y) => {
 
 const viewShipOnBoard = (coordinate, x, y, shipLenght, axeLenght) => {
     if (isFitOnGameboardAxis(coordinate, shipLenght, axeLenght)) {
-        return;
+        console.log('whaaaaat')
+        return false;
     } else {
-        if (Session.activeShip.getBoard()[x][y].getOccupant() === 'free'
-            || Session.activeShip.getBoard()[x][y].getOccupant() == Session.activeShip.getContainer()
-        ) {
-            viewShip(Session.activeShip, Session.activeShip.getBoard()[x][y]);
-        }
+        return viewShip(Session.activeShip, Session.activeShip.getBoard().getStructedContainer()[x][y]);
     }
 }
 
