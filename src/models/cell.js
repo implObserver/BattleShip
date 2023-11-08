@@ -32,9 +32,17 @@ export const Cell = (x = -1, y = -1, name = 'cell') => {
     const setXY = (nx, ny) => {
         x = nx;
         y = ny;
-    }
+    };
 
-    return { setTheHit, isHit, setParent, getParent, getCellNode, getXY, setXY };
+    return {
+        setTheHit,
+        isHit,
+        setParent,
+        getParent,
+        getCellNode,
+        getXY,
+        setXY,
+    };
 };
 
 export const Deck = (number) => {
@@ -42,10 +50,10 @@ export const Deck = (number) => {
 
     const getNumber = () => {
         return number;
-    }
+    };
 
     return Object.assign(prototype, { getNumber });
-}
+};
 
 export const MarineSector = (y, x) => {
     const prototype = Cell(y, x, 'marine-sector');
@@ -53,19 +61,19 @@ export const MarineSector = (y, x) => {
 
     const occupy = (nOccupant) => {
         occupant = nOccupant;
-    }
+    };
 
     const clear = () => {
         occupant = 'free';
-    }
+    };
 
     const isFree = () => {
         return occupant === 'free';
-    }
+    };
 
     const getOccupant = () => {
         return occupant;
-    }
+    };
 
     return Object.assign(prototype, { isFree, clear, occupy, getOccupant });
-}
+};

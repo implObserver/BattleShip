@@ -9,9 +9,10 @@ export const player1 = Profile(1, 'Player1', 'player-board');
 export const ai = Profile(0, 'AI', 'ai-board');
 viewProfile(player1);
 viewProfile(ai);
-viewShipyard(player1.getShipyard())
+viewShipyard(player1.getShipyard());
 setListenersForLinks();
 setListenersForShips(player1.getShipyard().getDockWithFregats().getShips());
 setListenersForShips(player1.getShipyard().getDockWithCaravels().getShips());
 setListenersForShips(player1.getShipyard().getDockWithDrakkars().getShips());
 setListenersForShips(player1.getShipyard().getDockWithBoats().getShips());
+player1.getGameboard().randomFillingOfShips();

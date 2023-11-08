@@ -1,67 +1,67 @@
 export const CellHandler = () => {
     const getBefore = (x, y, parent) => {
         try {
-            return parent[y][--x]
+            return parent[y][--x];
         } catch (error) {
-            return parent[y][++x]
+            return parent[y][++x];
         }
-    }
+    };
 
     const getAfter = (x, y, parent) => {
         try {
-            return parent[y][++x]
+            return parent[y][++x];
         } catch (error) {
-            return parent[y][--x]
+            return parent[y][--x];
         }
-    }
+    };
 
     const getOver = (x, y, parent) => {
         try {
-            return parent[--y][x]
+            return parent[--y][x];
         } catch (error) {
-            return parent[++y][x]
+            return parent[++y][x];
         }
-    }
+    };
 
     const getUnder = (x, y, parent) => {
         try {
-            return parent[++y][x]
+            return parent[++y][x];
         } catch (error) {
-            return parent[--y][x]
+            return parent[--y][x];
         }
-    }
+    };
 
     const getDiag1 = (x, y, parent) => {
         try {
-            return parent[--y][--x]
+            return parent[--y][--x];
         } catch (error) {
-            return parent[++y][++x]
+            return parent[++y][++x];
         }
-    }
+    };
 
     const getDiag2 = (x, y, parent) => {
         try {
-            return parent[--y][++x]
+            return parent[--y][++x];
         } catch (error) {
-            return parent[++y][--x]
+            return parent[++y][--x];
         }
-    }
+    };
 
     const getDiag3 = (x, y, parent) => {
         try {
-            return parent[++y][++x]
+            return parent[++y][++x];
         } catch (error) {
-            return parent[--y][--x]
+            return parent[--y][--x];
         }
-    }
+    };
 
     const getDiag4 = (x, y, parent) => {
         try {
-            return parent[++y][--x]
+            return parent[++y][--x];
         } catch (error) {
-            return parent[--y][++x]
+            return parent[--y][++x];
         }
-    }
+    };
 
     const getCellAroundArea = (x, y, parent, container) => {
         let cells = [];
@@ -73,9 +73,9 @@ export const CellHandler = () => {
         cells.push(getDiag2(x, y, parent));
         cells.push(getDiag3(x, y, parent));
         cells.push(getDiag4(x, y, parent));
-        cells = cells.filter(cell => cell !== undefined);
+        cells = cells.filter((cell) => cell !== undefined);
         return cells;
-    }
+    };
 
-    return { getCellAroundArea }
-}
+    return { getCellAroundArea };
+};

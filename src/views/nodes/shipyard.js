@@ -1,45 +1,22 @@
+import { player1 } from '../..';
+import { Config } from '../../models/gameConfig';
 import { setDraggableForShips } from '../dragAndDrop/ships';
 
-export const viewShipyard = (shipyard) => {
-    fillShipyardNode(shipyard);
+export const viewShipyard = () => {
+    fillShipyardNode();
     setDraggableForShips();
 };
 
-const fillShipyardNode = (shipyard) => {
-    addFregates(shipyard);
-    addCaravels(shipyard);
-    addDrakkars(shipyard);
-    addBoats(shipyard);
+const fillShipyardNode = () => {
+    Config.Elements.shipTypes.forEach((type) => {
+        addType(type);
+    });
 };
 
-const addFregates = (shipyard) => {
-    const dockNode = document.querySelector('.fregats');
-    const ships = shipyard.getDockWithFregats().getShips();
-    for (let i = 0; i < ships.length; i++) {
-        dockNode.appendChild(ships[i].getContainer());
-    }
-};
-
-const addCaravels = (shipyard) => {
-    const dockNode = document.querySelector('.caravels');
-    const ships = shipyard.getDockWithCaravels().getShips();
-    for (let i = 0; i < ships.length; i++) {
-        dockNode.appendChild(ships[i].getContainer());
-    }
-};
-
-const addDrakkars = (shipyard) => {
-    const dockNode = document.querySelector('.drakkars');
-    const ships = shipyard.getDockWithDrakkars().getShips();
-    for (let i = 0; i < ships.length; i++) {
-        dockNode.appendChild(ships[i].getContainer());
-    }
-};
-
-const addBoats = (shipyard) => {
-    const dockNode = document.querySelector('.boats');
-    const ships = shipyard.getDockWithBoats().getShips();
-    for (let i = 0; i < ships.length; i++) {
-        dockNode.appendChild(ships[i].getContainer());
-    }
+const addType = (type) => {
+    const dock = document.querySelector(`.${type}`);
+    const ships = player1.getShipyard().getShipsOfType(type);
+    ships.forEach((ship) => {
+        dock.appendChild(ship.getContainer());
+    });
 };

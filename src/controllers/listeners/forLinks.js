@@ -15,9 +15,8 @@ export const setListenersForLinks = () => {
     });
 
     const openRandomMode = randomModeLink.addEventListener('click', (e) => {
-        player1.getGameboard().reset();
         removeHidden(ai.getGameboard().getNode());
         setHidden(shipyard);
-        player1.getGameboard().addRandomShips();
+        player1.getGameboard().randomFillingOfShips();
     });
 };

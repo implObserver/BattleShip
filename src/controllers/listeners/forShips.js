@@ -1,20 +1,19 @@
-import { player1 } from "../..";
-import { Session, resetSession } from "../../models/session";
-import { shipDragEnd } from "../../models/ship";
-import { viewShip } from "../../views/nodes/ship";
+import { player1 } from '../..';
+import { Session, resetSession } from '../../models/session';
+import { viewShip } from '../../views/nodes/ship';
+import { shipDragEnd } from '../ship';
 
 export const setListenersForShips = (ships) => {
     const border = document.querySelector('.player-board');
-
     ships.forEach((ship) => {
         const decks = ship.getBody();
-        decks.forEach(deck => {
-            deck.getCellNode().addEventListener('mousedown', evt => {
+        decks.forEach((deck) => {
+            deck.getCellNode().addEventListener('mousedown', (evt) => {
                 Session.index = deck.getNumber();
-            })
-        })
+            });
+        });
 
-        ship.getContainer().addEventListener('click', e => {
+        ship.getContainer().addEventListener('click', (e) => {
             if (ship.getHead() !== null) {
                 Session.activeShip = ship;
                 Session.currentElement = ship.getHead().getCellNode();
@@ -23,18 +22,22 @@ export const setListenersForShips = (ships) => {
 
                 if (isView) {
                     ship.setOrientation();
-                    resetSession()
                 } else {
                     ship.orientationSwitch();
                 }
+
+                resetSession();
             }
-        })
+        });
 
         ship.getContainer().addEventListener(`dragstart`, (evt) => {
             evt.target.classList.add(`selected`);
-            player1.getGameboard().getUnstructedContainer().forEach(cell => {
-                cell.getCellNode().style.border = ''
-            })
+            player1
+                .getGameboard()
+                .getUnstructedContainer()
+                .forEach((cell) => {
+                    cell.getCellNode().style.border = '';
+                });
             Session.activeShip = ship;
         });
 
@@ -47,5 +50,5 @@ export const setListenersForShips = (ships) => {
 
     border.addEventListener(`dragover`, (evt) => {
         Session.currentElement = evt.target;
-    })
-}
+    });
+};

@@ -4,12 +4,12 @@ export const Session = (() => {
     let doubleIndex = 'ship';
     let currentElement = null;
 
-    return { activeShip, index, doubleIndex, currentElement }
-})()
+    return { activeShip, index, doubleIndex, currentElement };
+})();
 
 export const resetSession = () => {
     Session.activeShip = null;
     Session.index = 0;
     Session.doubleIndex = 'ship';
     Session.currentElement = null;
-}
+};

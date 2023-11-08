@@ -6,6 +6,7 @@ export const Config = (() => {
     })();
 
     const Elements = (() => {
+        const shipTypes = ['fregats', 'caravels', 'drakkars', 'boats'];
         const numberOf = (() => {
             const fregates = 1;
             const caravels = 2;
@@ -14,9 +15,8 @@ export const Config = (() => {
             return { fregates, caravels, drakkars, boats };
         })();
 
-        return { numberOf };
+        return { numberOf, shipTypes };
     })();
 
     return { Gameboard, Elements };
 })();
-
