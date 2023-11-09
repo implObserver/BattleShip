@@ -1,4 +1,4 @@
-import { player1 } from '../..';
+import { game } from '../..';
 import { Config } from '../../models/gameConfig';
 import { setDraggableForShips } from '../dragAndDrop/ships';
 
@@ -15,7 +15,7 @@ const fillShipyardNode = () => {
 
 const addType = (type) => {
     const dock = document.querySelector(`.${type}`);
-    const ships = player1.getShipyard().getShipsOfType(type);
+    const ships = game.player.getShipyard().getShipsOfType(type);
     ships.forEach((ship) => {
         dock.appendChild(ship.getContainer());
     });

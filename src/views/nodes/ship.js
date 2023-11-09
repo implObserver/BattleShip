@@ -1,4 +1,4 @@
-import { ai, player1 } from '../..';
+import { game } from '../..';
 import { randomIntFromInterval } from '../../helper/helper';
 import { removeHidden, setHidden } from '../animations/changeVisible';
 
@@ -13,7 +13,7 @@ export const viewShip = (ship, head) => {
 };
 
 const checkShipyard = () => {
-    if (player1.getShipyard().isEmpty()) {
+    if (game.player.getShipyard().isEmpty()) {
         setTimeout(() => {
             closeManualMenu();
         }, 500);
@@ -22,7 +22,7 @@ const checkShipyard = () => {
 
 const closeManualMenu = () => {
     const shipyard = document.querySelector('.shipyard');
-    removeHidden(ai.getGameboard().getNode());
+    removeHidden(game.ai.getGameboard().getNode());
     setHidden(shipyard);
 };
 
@@ -32,7 +32,7 @@ export const viewShipOnRandomCell = (ship, cells) => {
     return isView ? true : viewShipOnRandomCell(ship, cells);
 };
 
-const getRandomCell = (cells) => {
+export const getRandomCell = (cells) => {
     let index = randomIntFromInterval(0, cells.length - 1);
     return cells.splice(index, 1)[0];
 };

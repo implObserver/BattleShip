@@ -112,18 +112,45 @@ span {
 .board-wrapper {
     display: grid;
     grid-template-columns: min-content min-content;
+    grid-template-areas: 'axis-y board';
 }
 
 .y-axis {
     display: grid;
+    grid-area: axis-y;
     grid-template-rows: repeat(var(--board-height), 2fr);
 }
 
 .board {
+    grid-area: board;
     display: inline-grid;
     grid-template-columns: repeat(var(--board-width), 2fr);
     grid-template-rows: repeat(var(--board-height), 2fr);
-    border: 0.5vh rgba(0, 0, 255, 0.1) solid;
+    border: 0.5vh rgba(0, 0, 255, 0.2) solid;
+}
+
+.play {
+    grid-area: board;
+    display: grid;
+    justify-self: center;
+    align-self: center;
+    width: 10vh;
+    height: 10vh;
+    background-color: rgba(119, 202, 41, 0.726);
+    border: 1vh rgb(119, 202, 41) solid;
+    z-index: 1000;
+}
+
+.low-opacity {
+    opacity: 0.4;
+}
+
+.block {
+    pointer-events: none;
+}
+
+.hidden {
+    display: none;
 }
 
 .marker {
@@ -142,6 +169,11 @@ span {
     -ms-user-select: none;
 }
 
+.miss-hit {
+    background-image: url(/src/views/images/crack.png);
+    background-size: 100% 100%;
+}
+
 .x-cell,
 .y-cell {
     justify-content: center;
@@ -150,15 +182,18 @@ span {
 }
 
 .marine-sector {
-    border: 0.1vh rgba(0, 0, 255, 0.1) solid;
+    display: grid;
+
+    border: 0.1vh rgba(0, 0, 255, 0.2) solid;
 }
 
 .ship {
     display: grid;
-    width: min-content;
-    height: min-content;
-    background-color: rgba(0, 0, 255, 0.1);
-    border: 0.1vh rgba(0, 0, 255, 1) solid;
+    align-content: center;
+    justify-content: center;
+    margin-left: -1px;
+    margin-top: -1px;
+    border: 0.3vh rgba(0, 0, 255, 1) solid;
 }
 
 .horizontal {
@@ -170,6 +205,8 @@ span {
 }
 
 .deck {
+    display: grid;
+    background-color: rgba(0, 0, 255, 0.1);
     z-index: 999;
 }
 

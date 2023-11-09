@@ -1,4 +1,4 @@
-import { ai, player1 } from '../..';
+import { game } from '../..';
 import { removeHidden, setHidden } from '../../views/animations/changeVisible';
 import { viewShipyard } from '../../views/nodes/shipyard';
 
@@ -8,15 +8,15 @@ export const setListenersForLinks = () => {
     const shipyard = document.querySelector('.shipyard');
 
     const openManualMode = manualModeLink.addEventListener('click', (e) => {
-        player1.getGameboard().reset();
-        viewShipyard(player1.getShipyard());
-        setHidden(ai.getGameboard().getNode());
+        game.player.getGameboard().reset();
+        viewShipyard(game.player.getShipyard());
+        setHidden(game.ai.getGameboard().getNode());
         removeHidden(shipyard);
     });
 
     const openRandomMode = randomModeLink.addEventListener('click', (e) => {
-        removeHidden(ai.getGameboard().getNode());
+        removeHidden(game.ai.getGameboard().getNode());
         setHidden(shipyard);
-        player1.getGameboard().randomFillingOfShips();
+        game.player.getGameboard().randomFillingOfShips();
     });
 };

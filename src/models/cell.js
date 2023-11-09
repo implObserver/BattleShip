@@ -41,7 +41,7 @@ export const Cell = (x = -1, y = -1, name = 'cell') => {
         getParent,
         getCellNode,
         getXY,
-        setXY,
+        setXY
     };
 };
 
