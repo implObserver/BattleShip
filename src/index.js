@@ -9,3 +9,4 @@ import { Game } from './models/game';
 export const game = Game();
 game.start();
 game.player.getGameboard().randomFillingOfShips();
+game.ai.getGameboard().randomFillingOfShips();

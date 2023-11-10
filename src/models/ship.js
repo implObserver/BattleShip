@@ -1,10 +1,6 @@
 import { randomIntFromInterval } from '../helper/helper';
 import { getNode } from '../views/nodes/factory';
-import { viewShip } from '../views/nodes/ship';
 import { Deck } from './cell';
-import { isFitOnGameboardAxis } from './gameBoard';
-import { Config } from './gameConfig';
-import { Session } from './session';
 import { ShipWaterAreas } from './waterAreas';
 
 export const Ship = (length, player) => {
@@ -13,7 +9,16 @@ export const Ship = (length, player) => {
     let live = true;
     let horizontal = true;
     let head = null;
-    let shipWaterAreas = ShipWaterAreas(player, container);
+    let ship = {};
+    let shipWaterAreas = ShipWaterAreas(player, ship);
+
+    const setYourself = (thisShip) => {
+        ship = thisShip;
+    }
+
+    const getYourself = () => {
+        return ship;
+    }
 
     const fillContainer = () => {
         for (let i = 0; i < length; i++) {
@@ -42,18 +47,27 @@ export const Ship = (length, player) => {
             if (acessibility) {
                 takeDownWaterAreas();
                 shipWaterAreas = waterAreas;
+                linkShipWithField();
                 shipWaterAreas.occupyAreas();
             }
-
             return acessibility;
         } catch (error) {
             return false;
         }
     };
 
+    const linkShipWithField = () => {
+        let area = shipWaterAreas.getAreaUnderTheShip();
+        for (let i = 0; i < length; i++) {
+            const xy = area[i].getXY();
+            body[i].setXY(xy.x, xy.y);
+            area[i].setLinkedDeck(body[i]);
+        }
+    }
+
     const getWaterArea = (head) => {
         let board = getBoard().getStructedContainer();
-        let areas = ShipWaterAreas(player, container);
+        let areas = ShipWaterAreas(player, ship);
         let x = head.getXY().x;
         let y = head.getXY().y;
         let necessarySectors = [];
@@ -136,7 +150,7 @@ export const Ship = (length, player) => {
             head = null;
         }
         shipWaterAreas.clearAreas();
-        shipWaterAreas = ShipWaterAreas(player, container);
+        shipWaterAreas = ShipWaterAreas(player, ship);
     };
 
     fillContainer();
@@ -157,6 +171,8 @@ export const Ship = (length, player) => {
         getHead,
         setHead,
         isHorizontal,
+        setYourself,
+        getYourself
     };
 };
 

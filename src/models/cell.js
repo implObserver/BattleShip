@@ -4,6 +4,15 @@ export const Cell = (x = -1, y = -1, name = 'cell') => {
     let hit = false;
     let parent = 'free';
     let node = getNode(name, 'cell');
+    let linkedDeck = 'free';
+
+    const setLinkedDeck = (deck) => {
+        linkedDeck = deck;
+    }
+
+    const getLinkedDeck = () => {
+        return linkedDeck;
+    }
 
     const setTheHit = () => {
         hit = true;
@@ -41,7 +50,9 @@ export const Cell = (x = -1, y = -1, name = 'cell') => {
         getParent,
         getCellNode,
         getXY,
-        setXY
+        setXY,
+        setLinkedDeck,
+        getLinkedDeck
     };
 };
 

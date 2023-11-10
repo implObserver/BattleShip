@@ -1,7 +1,7 @@
 import { CellHandler } from './cellHandler';
 import { Session } from './session';
 
-export const ShipWaterAreas = (player, container) => {
+export const ShipWaterAreas = (player, ship) => {
     let underTheShip = [];
     let aroundTheShip = [];
 
@@ -28,7 +28,7 @@ export const ShipWaterAreas = (player, container) => {
                 coordinates.x,
                 coordinates.y,
                 parent,
-                container,
+                ship,
             );
             areas = areas.concat(area);
         });
@@ -40,7 +40,7 @@ export const ShipWaterAreas = (player, container) => {
     const occupyAreas = () => {
         underTheShip.forEach((sector) => {
             if (sector.isFree()) {
-                sector.occupy(container);
+                sector.occupy(ship);
             }
         });
     };
@@ -50,7 +50,7 @@ export const ShipWaterAreas = (player, container) => {
         let areas = underTheShip.concat(aroundTheShip);
 
         areas.forEach((sector) => {
-            if (!sector.isFree() && sector.getOccupant() !== container) {
+            if (!sector.isFree() && sector.getOccupant() !== ship) {
                 acessibility = false;
             }
         });
@@ -62,6 +62,7 @@ export const ShipWaterAreas = (player, container) => {
         let areas = underTheShip.concat(aroundTheShip);
         areas.forEach((sector) => {
             sector.clear();
+            //sector.setLinkedDeck('free');
         });
     };
 

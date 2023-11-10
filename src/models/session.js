@@ -3,8 +3,8 @@ export const Session = (() => {
     let index = 0;
     let doubleIndex = 'ship';
     let currentElement = null;
-
-    return { activeShip, index, doubleIndex, currentElement };
+    let choisedCell = null;
+    return { activeShip, index, doubleIndex, currentElement, choisedCell };
 })();
 
 export const resetSession = () => {

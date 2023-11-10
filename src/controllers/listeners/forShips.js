@@ -32,12 +32,6 @@ export const setListenersForShips = (ships) => {
 
         ship.getContainer().addEventListener(`dragstart`, (evt) => {
             evt.target.classList.add(`selected`);
-            game.player
-                .getGameboard()
-                .getUnstructedContainer()
-                .forEach((cell) => {
-                    cell.getCellNode().style.border = '';
-                });
             Session.activeShip = ship;
         });
 

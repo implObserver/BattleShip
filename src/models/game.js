@@ -1,5 +1,6 @@
+import { game } from "..";
 import { setListenersForLinks } from "../controllers/listeners/forLinks";
-import { setListenersForPlayButton } from "../controllers/listeners/forPlay";
+import { setListenersForCells, setListenersForPlayButton } from "../controllers/listeners/forPlay";
 import { setListenersForShips } from "../controllers/listeners/forShips";
 import { setDraggableForShips } from "../views/dragAndDrop/ships";
 import { viewProfile } from "../views/nodes/profile";
@@ -12,7 +13,8 @@ export const Game = () => {
     let ai = Profile(0, 'AI', 'ai-board');
     let move = 'player';
     let playerCells = [...player.getGameboard().getUnstructedContainer()];
-    let aiCells = [...ai.getGameboard().getStructedContainer()];
+    let aiCells = [...ai.getGameboard().getUnstructedContainer()];
+    let timeOfTheMove;
 
     const viewInterfaces = () => {
         viewProfile(player);
@@ -32,20 +34,45 @@ export const Game = () => {
     }
 
     const play = () => {
+        setListenersForCells();
         document.querySelector('.play').classList.add('hidden');
         document.querySelector('.footer').classList.add('hidden');
         document.querySelector('.tips').classList.add('hidden');
 
         player.getGameboard().blockShips();
-        playerMove()
-        setInterval(() => {
+        playerMove();
+        timeOfTheMove = getTimeOfTheMove();
+    }
+
+    const getTimeOfTheMove = () => {
+        return setInterval(() => {
             switchMove();
-        }, 5000);
+        }, 3000);
+    }
+
+    const isEndGame = () => {
+        let isEnd = isPlayerLose(player) || isPlayerLose(ai);
+        return isEnd;
+    }
+
+    const isPlayerLose = (player) => {
+        let isLose = true;
+        const ships = player.getShipyard().getAllShips();
+        ships.forEach(ship => {
+            if (ship.isLive()) {
+                isLose = false;
+            }
+        })
+        return isLose;
     }
 
     const switchMove = () => {
-        if (move === 'ai') {
+        clearInterval(timeOfTheMove)
+        if (isEndGame()) {
+            return false;
+        } else if (move === 'ai') {
             move = 'player';
+            timeOfTheMove = getTimeOfTheMove();
             playerMove();
         } else {
             move = 'ai';
@@ -54,15 +81,26 @@ export const Game = () => {
     }
 
     const playerMove = () => {
+        ai.getGameboard().getNode().classList.remove('block');
         setPlayerMoveDesign(ai, player);
     }
 
     const aiMove = () => {
+        ai.getGameboard().getNode().classList.add('block');
         setAiMoveDesign(ai, player);
-        randomAiHit(playerCells)
+        setTimeout(() => {
+            takeHit(getRandomCell(playerCells));
+        }, 1000);
     }
 
-    return { start, play, ai, player }
+    const checkCell = (cell) => {
+        if (aiCells.includes(cell)) {
+            let index = aiCells.indexOf(cell);
+            takeHit(aiCells.splice(index, 1)[0]);
+        }
+    }
+
+    return { start, play, switchMove, checkCell, ai, player }
 }
 
 const setPlayerMoveDesign = (ai, player) => {
@@ -83,10 +121,18 @@ const setAiMoveDesign = (ai, player) => {
     ai.getGameboard().getNode().querySelector('.board').classList.add('low-opacity');
 }
 
-const randomAiHit = (playerCells) => {
-    if (playerCells.length > 0) {
-        let cell = getRandomCell(playerCells);
-        console.log(cell)
+export const takeHit = (cell) => {
+    const ship = cell.getOccupant();
+    if (ship === 'free') {
         cell.getCellNode().classList.add('miss-hit');
+    } else {
+        const deck = cell.getLinkedDeck();
+        deck.setTheHit();
+        deck.getCellNode().classList.add('destroyed');
+        console.log(ship.isLive())
+        if (!ship.isLive()) {
+            ship.getContainer().style.opacity = '0.3';
+        }
     }
+    game.switchMove();
 }

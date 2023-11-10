@@ -174,6 +174,12 @@ span {
     background-size: 100% 100%;
 }
 
+.destroyed {
+    background-color: rgba(248, 7, 7, 0.541) !important;
+}
+
+.live {}
+
 .x-cell,
 .y-cell {
     justify-content: center;
