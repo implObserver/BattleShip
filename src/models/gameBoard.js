@@ -53,6 +53,20 @@ export const Gameboard = (name, player) => {
         });
     }
 
+    const unblockShips = () => {
+        node.querySelectorAll('.ship').forEach(ship => {
+            ship.classList.remove('block');
+        });
+    }
+
+    const block = () => {
+        node.querySelector('.board').classList.add('block');
+    }
+
+    const unblock = () => {
+        node.querySelector('.board').classList.remove('block');
+    }
+
     return {
         randomFillingOfShips,
         reset,
@@ -61,7 +75,10 @@ export const Gameboard = (name, player) => {
         getUnstructedContainer,
         getSize,
         getNode,
-        blockShips
+        blockShips,
+        unblockShips,
+        block,
+        unblock
     };
 };
 

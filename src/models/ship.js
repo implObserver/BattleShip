@@ -149,9 +149,16 @@ export const Ship = (length, player) => {
             head.getCellNode().removeChild(container);
             head = null;
         }
+        resetBody();
         shipWaterAreas.clearAreas();
         shipWaterAreas = ShipWaterAreas(player, ship);
     };
+
+    const resetBody = () => {
+        body.forEach(deck => {
+            deck.reset();
+        })
+    }
 
     fillContainer();
 

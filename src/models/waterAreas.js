@@ -62,7 +62,6 @@ export const ShipWaterAreas = (player, ship) => {
         let areas = underTheShip.concat(aroundTheShip);
         areas.forEach((sector) => {
             sector.clear();
-            //sector.setLinkedDeck('free');
         });
     };
 

@@ -43,6 +43,12 @@ export const Cell = (x = -1, y = -1, name = 'cell') => {
         y = ny;
     };
 
+    const reset = () => {
+        hit = false;
+        node.classList.remove('miss-hit');
+        node.classList.remove('destroyed');
+    }
+
     return {
         setTheHit,
         isHit,
@@ -52,7 +58,8 @@ export const Cell = (x = -1, y = -1, name = 'cell') => {
         getXY,
         setXY,
         setLinkedDeck,
-        getLinkedDeck
+        getLinkedDeck,
+        reset
     };
 };
 
@@ -76,6 +83,7 @@ export const MarineSector = (y, x) => {
 
     const clear = () => {
         occupant = 'free';
+        prototype.reset();
     };
 
     const isFree = () => {
