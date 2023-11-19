@@ -1,31 +1,33 @@
+import { removeHidden, setHidden, setLowOpacity, setNormalOpacity } from "../animations/changeVisible";
+
 export const hiddenInterfaceBeforeStartPlay = () => {
-    document.querySelector('.play').classList.add('hidden');
-    document.querySelector('.footer').classList.add('hidden');
-    document.querySelector('.tips').classList.add('hidden');
-    document.querySelector('.exit').classList.remove('hidden');
+    setHidden(document.querySelector('.play'))
+    setHidden(document.querySelector('.footer'))
+    setHidden(document.querySelector('.tips'))
+    removeHidden(document.querySelector('.exit'))
 }
 
 export const viewInterfaceAfterEndGame = () => {
-    document.querySelector('.play').classList.remove('hidden');
-    document.querySelector('.footer').classList.remove('hidden');
-    document.querySelector('.tips').classList.remove('hidden');
-    document.querySelector('.exit').classList.add('hidden');
+    removeHidden(document.querySelector('.play'))
+    removeHidden(document.querySelector('.footer'))
+    removeHidden(document.querySelector('.tips'))
+    setHidden(document.querySelector('.exit'))
 }
 
 export const setPlayerMoveDesign = (ai, player) => {
-    ai.getGameboard().getNode().querySelector('.x-axis').classList.remove('low-opacity');
-    ai.getGameboard().getNode().querySelector('.y-axis').classList.remove('low-opacity');
-    ai.getGameboard().getNode().querySelector('.board').classList.remove('low-opacity');
-    player.getGameboard().getNode().querySelector('.x-axis').classList.add('low-opacity');
-    player.getGameboard().getNode().querySelector('.y-axis').classList.add('low-opacity');
-    player.getGameboard().getNode().querySelector('.board').classList.add('low-opacity');
+    setNormalOpacity(ai.getGameboard().getNode().querySelector('.x-axis'))
+    setNormalOpacity(ai.getGameboard().getNode().querySelector('.y-axis'))
+    setNormalOpacity(ai.getGameboard().getNode().querySelector('.board'))
+    setLowOpacity(player.getGameboard().getNode().querySelector('.x-axis'))
+    setLowOpacity(player.getGameboard().getNode().querySelector('.y-axis'))
+    setLowOpacity(player.getGameboard().getNode().querySelector('.board'))
 }
 
 export const setAiMoveDesign = (ai, player) => {
-    player.getGameboard().getNode().querySelector('.x-axis').classList.remove('low-opacity');
-    player.getGameboard().getNode().querySelector('.y-axis').classList.remove('low-opacity');
-    player.getGameboard().getNode().querySelector('.board').classList.remove('low-opacity');
-    ai.getGameboard().getNode().querySelector('.x-axis').classList.add('low-opacity');
-    ai.getGameboard().getNode().querySelector('.y-axis').classList.add('low-opacity');
-    ai.getGameboard().getNode().querySelector('.board').classList.add('low-opacity');
+    setNormalOpacity(player.getGameboard().getNode().querySelector('.x-axis'))
+    setNormalOpacity(player.getGameboard().getNode().querySelector('.y-axis'))
+    setNormalOpacity(player.getGameboard().getNode().querySelector('.board'))
+    setLowOpacity(ai.getGameboard().getNode().querySelector('.x-axis'))
+    setLowOpacity(ai.getGameboard().getNode().querySelector('.y-axis'))
+    setLowOpacity(ai.getGameboard().getNode().querySelector('.board'))
 }

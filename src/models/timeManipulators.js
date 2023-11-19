@@ -1,11 +1,15 @@
 import { game } from "..";
+import { removeChilds } from "../helper/helper";
 import { getRandomCell } from "../views/nodes/ship";
+import { Timer } from "./elements/templates";
 
 
 export const TimeManipulators = () => {
     let timeOfTheMove;
     let aiSpeedOfTought;
     let timeBetweenMoves;
+    let timer = Timer();
+    document.querySelector('.timer').appendChild(timer.getSvg());
 
     const setAiSpeedOfTought = (cells) => {
         aiSpeedOfTought = setTimeout(() => {
@@ -21,13 +25,14 @@ export const TimeManipulators = () => {
     }
 
     const setTimeOfTheMove = () => {
+        timer.view();
         timeOfTheMove = setInterval(() => {
-            console.log('dwdwd')
             game.gameHandler.switchMove();
-        }, 3000);
+        }, 15000);
     }
 
     const reset = () => {
+        timer.reset();
         clearTimeout(aiSpeedOfTought);
         clearTimeout(timeBetweenMoves);
         clearInterval(timeOfTheMove);

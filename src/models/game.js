@@ -7,6 +7,7 @@ import { viewProfile } from "../views/nodes/profile";
 import { getRandomCell } from "../views/nodes/ship";
 import { viewShipyard } from "../views/nodes/shipyard";
 import { hiddenInterfaceBeforeStartPlay, setAiMoveDesign, setPlayerMoveDesign, viewInterfaceAfterEndGame } from "../views/nodes/ui";
+import { Cross } from "./elements/templates";
 import { Profile } from "./player";
 import { TimeManipulators } from "./timeManipulators";
 
@@ -61,8 +62,8 @@ export const Game = () => {
     const endGameState = () => {
         ai.getGameboard().block();
         ai.getGameboard().reset();
-        player.getGameboard().reset();
         player.getGameboard().unblockShips();
+        player.getGameboard().reset();
         gameHandler.fillBoardsToRandomShips();
         setAiMoveDesign(ai, player)
     }
@@ -138,7 +139,9 @@ const GameHandler = (ai, player, timeManipulators) => {
         } else {
             const deck = cell.getLinkedDeck();
             deck.setTheHit();
-            deck.getCellNode().classList.add('destroyed');
+            let cross = Cross();
+            cross.view();
+            deck.getCellNode().appendChild(cross.getSvg());
             if (!ship.isLive()) {
                 ship.getContainer().style.opacity = '0.3';
             }

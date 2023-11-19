@@ -243,6 +243,18 @@ span {
     border-bottom: 1px dotted rgb(122, 231, 72);
 }
 
+.timer {
+    display: grid;
+    width: 100vw;
+    height: 2vh;
+    justify-self: start;
+}
+
+.timer>svg {
+    display: grid;
+    width: 100vw;
+}
+
 .hidden {
     display: none;
 }
