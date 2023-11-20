@@ -1,5 +1,6 @@
 import { player1 } from '..';
 import { randomIntFromInterval } from '../helper/helper';
+import { setHidden, setLowOpacity, setNullOpacity } from '../views/animations/changeVisible';
 import { viewShip, viewShipOnRandomCell } from '../views/nodes/ship';
 import { MarineSector } from './cell';
 import { Config } from './gameConfig';
@@ -59,6 +60,15 @@ export const Gameboard = (name, player) => {
         });
     }
 
+    const hiddenShips = () => {
+        node.querySelectorAll('.ship').forEach(ship => {
+            ship.style.border = '0px blue solid';
+        });
+        node.querySelectorAll('.deck').forEach(deck => {
+            setNullOpacity(deck)
+        });
+    }
+
     const block = () => {
         node.querySelector('.board').classList.add('block');
     }
@@ -77,6 +87,7 @@ export const Gameboard = (name, player) => {
         getNode,
         blockShips,
         unblockShips,
+        hiddenShips,
         block,
         unblock
     };

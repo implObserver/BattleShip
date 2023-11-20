@@ -258,3 +258,7 @@ span {
 .hidden {
     display: none;
 }
+
+.null-opacity {
+    opacity: 0;
+}

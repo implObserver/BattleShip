@@ -13,3 +13,11 @@ export const setLowOpacity = (node) => {
 export const setNormalOpacity = (node) => {
     node.classList.remove('low-opacity');
 }
+
+export const removeNullOpacity = (node) => {
+    node.classList.remove('null-opacity');
+}
+
+export const setNullOpacity = (node) => {
+    node.classList.add('null-opacity');
+}

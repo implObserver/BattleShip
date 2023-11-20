@@ -1,3 +1,4 @@
+import { game } from "../..";
 import { removeHidden, setHidden, setLowOpacity, setNormalOpacity } from "../animations/changeVisible";
 
 export const hiddenInterfaceBeforeStartPlay = () => {

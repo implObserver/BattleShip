@@ -2,11 +2,13 @@ import { game } from "..";
 import { setListenersForLinks } from "../controllers/listeners/forLinks";
 import { removeListenersForCells, setListenersForCells, setListenersForExitButton, setListenersForPlayButton } from "../controllers/listeners/forPlay";
 import { setListenersForShips } from "../controllers/listeners/forShips";
+import { removeNullOpacity, setNormalOpacity } from "../views/animations/changeVisible";
 import { setDraggableForShips } from "../views/dragAndDrop/ships";
 import { viewProfile } from "../views/nodes/profile";
 import { getRandomCell } from "../views/nodes/ship";
 import { viewShipyard } from "../views/nodes/shipyard";
 import { hiddenInterfaceBeforeStartPlay, setAiMoveDesign, setPlayerMoveDesign, viewInterfaceAfterEndGame } from "../views/nodes/ui";
+import { drawCross, killShipEffect, missEffect, nextMoveEffect } from "./elements/audioEffects";
 import { Cross } from "./elements/templates";
 import { Profile } from "./player";
 import { TimeManipulators } from "./timeManipulators";
@@ -38,6 +40,7 @@ export const Game = () => {
         setDefaultListeners();
         viewDefaulInterfaces();
         gameHandler.fillBoardsToRandomShips();
+        ai.getGameboard().hiddenShips();
     }
 
     const play = () => {
@@ -65,6 +68,7 @@ export const Game = () => {
         player.getGameboard().unblockShips();
         player.getGameboard().reset();
         gameHandler.fillBoardsToRandomShips();
+        ai.getGameboard().hiddenShips();
         setAiMoveDesign(ai, player)
     }
 
@@ -83,6 +87,7 @@ const GameHandler = (ai, player, timeManipulators) => {
     }
 
     const switchMove = () => {
+        nextMoveEffect.play();
         timeManipulators.reset();
         if (isEndGame()) {
             return false;
@@ -135,15 +140,20 @@ const GameHandler = (ai, player, timeManipulators) => {
     const takeHit = (cell) => {
         const ship = cell.getOccupant();
         if (ship === 'free') {
+            missEffect.play();
             cell.getCellNode().classList.add('miss-hit');
         } else {
             const deck = cell.getLinkedDeck();
+            removeNullOpacity(deck.getCellNode());
             deck.setTheHit();
             let cross = Cross();
             cross.view();
             deck.getCellNode().appendChild(cross.getSvg());
+            drawCross.play()
             if (!ship.isLive()) {
+                killShipEffect.play();
                 ship.getContainer().style.opacity = '0.3';
+                ship.getContainer().style.border = '0.5vh rgba(255, 0, 0, 1) solid';
             }
         }
     }

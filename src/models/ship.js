@@ -1,4 +1,4 @@
-import { randomIntFromInterval } from '../helper/helper';
+import { randomIntFromInterval, removeChilds } from '../helper/helper';
 import { getNode } from '../views/nodes/factory';
 import { Deck } from './cell';
 import { ShipWaterAreas } from './waterAreas';
@@ -145,16 +145,14 @@ export const Ship = (length, player) => {
 
     const reset = () => {
         setHorizontal();
-        if (head !== null) {
-            head.getCellNode().removeChild(container);
-            head = null;
-        }
         resetBody();
         shipWaterAreas.clearAreas();
         shipWaterAreas = ShipWaterAreas(player, ship);
     };
 
     const resetBody = () => {
+        container.style.opacity = '1';
+        container.style.border = '0.3vh rgba(0, 0, 255, 1) solid';
         body.forEach(deck => {
             deck.reset();
         })
