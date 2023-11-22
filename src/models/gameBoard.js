@@ -61,10 +61,11 @@ export const Gameboard = (name, player) => {
     }
 
     const hiddenShips = () => {
-        node.querySelectorAll('.ship').forEach(ship => {
+        const board = node.querySelector('.board');
+        board.querySelectorAll('.ship').forEach(ship => {
             ship.style.border = '0px blue solid';
         });
-        node.querySelectorAll('.deck').forEach(deck => {
+        board.querySelectorAll('.deck').forEach(deck => {
             setNullOpacity(deck)
         });
     }

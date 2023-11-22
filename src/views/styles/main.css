@@ -85,10 +85,11 @@ span {
 .dock {
     display: flex;
     column-gap: 4vh;
+    height: min-content;
 }
 
 .selected {
-    opacity: 0.01;
+    opacity: 0.01 !important;
 }
 
 .board__axis-wrapper {
@@ -109,14 +110,19 @@ span {
 .x-axis {
     display: grid;
     width: min-content;
-    padding-left: var(--cell-size);
+    padding-left: 5.5vh;
     grid-template-columns: repeat(var(--board-width), 2fr);
+    padding-right: 0.5vh;
+}
+
+.correct {
+    padding-left: 30vh;
 }
 
 .board-wrapper {
     display: grid;
     grid-template-columns: min-content min-content;
-    grid-template-areas: 'axis-y board';
+    grid-template-areas: 'player-mini-shipyard axis-y board ai-mini-shipyard';
 }
 
 .y-axis {
@@ -143,6 +149,23 @@ span {
     background-color: rgba(119, 202, 41, 0.726);
     border: 1vh rgb(119, 202, 41) solid;
     z-index: 998;
+}
+
+.ai-mini-shipyard,
+.player-mini-shipyard {
+    display: grid;
+    width: min-content;
+    height: min-content;
+    row-gap: 2vh;
+    padding: 3vh;
+}
+
+.ai-mini-shipyard {
+    grid-area: ai-mini-shipyard;
+}
+
+.player-mini-shipyard {
+    grid-area: player-mini-shipyard;
 }
 
 .low-opacity {
@@ -186,14 +209,13 @@ span {
 
 .x-cell,
 .y-cell {
-    justify-content: center;
-    align-items: center;
+    justify-items: center;
+    align-content: center;
     opacity: 0.5;
 }
 
 .marine-sector {
     display: grid;
-
     border: 0.1vh rgba(0, 0, 255, 0.2) solid;
 }
 
@@ -201,6 +223,8 @@ span {
     display: grid;
     align-content: center;
     justify-content: center;
+    height: min-content;
+    width: min-content;
     margin-left: -1px;
     margin-top: -1px;
     border: 0.3vh rgba(0, 0, 255, 1) solid;
@@ -218,6 +242,13 @@ span {
     display: grid;
     background-color: rgba(0, 0, 255, 0.1);
     z-index: 999;
+}
+
+.mini {
+    width: 1.5vh;
+    height: 1.5vh;
+    background-color: rgba(0, 255, 0, 0.1);
+    border: 0.3vh rgba(0, 255, 255, 1) solid;
 }
 
 .footer {

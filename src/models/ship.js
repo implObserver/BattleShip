@@ -1,9 +1,11 @@
 import { randomIntFromInterval, removeChilds } from '../helper/helper';
+import { setLowOpacity } from '../views/animations/changeVisible';
 import { getNode } from '../views/nodes/factory';
 import { Deck } from './cell';
+import { Cross } from './elements/templates';
 import { ShipWaterAreas } from './waterAreas';
 
-export const Ship = (length, player) => {
+export const Ship = (length, player, type) => {
     const container = getNode('ship', 'horizontal');
     let body = [];
     let live = true;
@@ -144,6 +146,7 @@ export const Ship = (length, player) => {
     };
 
     const reset = () => {
+        head = null;
         setHorizontal();
         resetBody();
         shipWaterAreas.clearAreas();
@@ -156,6 +159,20 @@ export const Ship = (length, player) => {
         body.forEach(deck => {
             deck.reset();
         })
+    }
+
+    const getType = () => {
+        return type;
+    }
+
+    const kill = () => {
+        body.forEach(deck => {
+            setLowOpacity(deck.getCellNode());
+            deck.setTheHit();
+        })
+        container.style.opacity = '0.3';
+        container.style.border = '0.5vh rgba(255, 0, 0, 1) solid';
+        live = false;
     }
 
     fillContainer();
@@ -177,26 +194,28 @@ export const Ship = (length, player) => {
         setHead,
         isHorizontal,
         setYourself,
-        getYourself
+        getYourself,
+        getType,
+        kill
     };
 };
 
 export const Fregat = (marker) => {
-    const prototype = Ship(4, marker);
+    const prototype = Ship(4, marker, 'fregats');
     return Object.assign(prototype, marker);
 };
 
 export const Caravel = (marker) => {
-    const prototype = Ship(3, marker);
+    const prototype = Ship(3, marker, 'caravels');
     return Object.assign(prototype);
 };
 
 export const Drakkar = (marker) => {
-    const prototype = Ship(2, marker);
+    const prototype = Ship(2, marker, 'drakkars');
     return Object.assign(prototype);
 };
 
 export const Boat = (marker) => {
-    const prototype = Ship(1, marker);
+    const prototype = Ship(1, marker, 'boats');
     return Object.assign(prototype);
 };

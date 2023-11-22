@@ -1,28 +1,29 @@
-import { game } from "..";
 import { setListenersForLinks } from "../controllers/listeners/forLinks";
-import { removeListenersForCells, setListenersForCells, setListenersForExitButton, setListenersForPlayButton } from "../controllers/listeners/forPlay";
+import { setListenersForCells, setListenersForExitButton, setListenersForPlayButton } from "../controllers/listeners/forPlay";
 import { setListenersForShips } from "../controllers/listeners/forShips";
-import { removeNullOpacity, setNormalOpacity } from "../views/animations/changeVisible";
-import { setDraggableForShips } from "../views/dragAndDrop/ships";
+import { removeHidden, removeNullOpacity, setHidden } from "../views/animations/changeVisible";
 import { viewProfile } from "../views/nodes/profile";
-import { getRandomCell } from "../views/nodes/ship";
 import { viewShipyard } from "../views/nodes/shipyard";
-import { hiddenInterfaceBeforeStartPlay, setAiMoveDesign, setPlayerMoveDesign, viewInterfaceAfterEndGame } from "../views/nodes/ui";
+import { hiddenInterfaceBeforeStartPlay, setAiMoveDesign, setMiniShipyardDesign, setPlayerMoveDesign, viewInterfaceAfterEndGame } from "../views/nodes/ui";
 import { drawCross, killShipEffect, missEffect, nextMoveEffect } from "./elements/audioEffects";
 import { Cross } from "./elements/templates";
 import { Profile } from "./player";
 import { TimeManipulators } from "./timeManipulators";
 
 export const Game = () => {
-    let player = Profile(1, 'Player', 'player-board');
-    let ai = Profile(0, 'AI', 'ai-board');
+    let player = Profile(1, 'Player', 'player-board', '.ai-mini-shipyard');
+    let ai = Profile(0, 'AI', 'ai-board', '.player-mini-shipyard');
     const timeManipulators = TimeManipulators();
     const gameHandler = GameHandler(ai, player, timeManipulators);
 
     const viewDefaulInterfaces = () => {
         viewProfile(player);
         viewProfile(ai);
-        viewShipyard(player);
+        viewShipyard(player.getShipyard());
+        viewShipyard(player.getMiniShipyard());
+        viewShipyard(ai.getMiniShipyard());
+        setMiniShipyardDesign(player.getMiniShipyard())
+        setMiniShipyardDesign(ai.getMiniShipyard())
     }
 
     const setDefaultListeners = () => {
@@ -48,11 +49,17 @@ export const Game = () => {
         setGamePlayListeners();
         hiddenInterfaceBeforeStartPlay();
         playGameState();
+        removeHidden(ai.getMiniShipyard().getNode())
+        removeHidden(player.getMiniShipyard().getNode())
         gameHandler.playerMove();
         timeManipulators.setTimeOfTheMove();
+        document.querySelector('.x-axis').classList.add('correct')
     }
 
     const end = () => {
+        document.querySelector('.x-axis').classList.remove('correct')
+        setHidden(ai.getMiniShipyard().getNode())
+        setHidden(player.getMiniShipyard().getNode())
         timeManipulators.reset();
         viewInterfaceAfterEndGame();
         endGameState();
@@ -154,6 +161,24 @@ const GameHandler = (ai, player, timeManipulators) => {
                 killShipEffect.play();
                 ship.getContainer().style.opacity = '0.3';
                 ship.getContainer().style.border = '0.5vh rgba(255, 0, 0, 1) solid';
+                const type = ship.getType();
+                let ships;
+                if (move === 'ai') {
+                    ships = ai.getMiniShipyard().getShipsOfType(type);
+                } else {
+                    ships = player.getMiniShipyard().getShipsOfType(type);
+                }
+                console.log(ships)
+                let killedShip = null;
+                ships.forEach(ship => {
+                    if (ship.isLive()) {
+                        if (killedShip === null) {
+                            killedShip = ship;
+                        }
+                    }
+                })
+
+                killedShip.kill();
             }
         }
     }

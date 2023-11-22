@@ -32,3 +32,12 @@ export const setAiMoveDesign = (ai, player) => {
     setLowOpacity(ai.getGameboard().getNode().querySelector('.y-axis'))
     setLowOpacity(ai.getGameboard().getNode().querySelector('.board'))
 }
+
+export const setMiniShipyardDesign = (shipyard) => {
+    const decks = shipyard.getNode().querySelectorAll('.deck');
+    const ships = shipyard.getAllShips();
+    
+    decks.forEach(deck => {
+        deck.classList.add('mini')
+    })
+}

@@ -13,11 +13,12 @@ const Player = (id, name) => {
     return { getId, getName };
 };
 
-export const Profile = (id, name, nodeId) => {
+export const Profile = (id, name, nodeId, miniShipyardId) => {
     const prototype = Player(id, name);
 
     let gameboard = Gameboard(nodeId, prototype);
     let shipyard = Shipyard(prototype);
+    let miniShipyard = Shipyard(prototype, document.querySelector(miniShipyardId));
 
     const getGameboard = () => {
         return gameboard;
@@ -27,5 +28,9 @@ export const Profile = (id, name, nodeId) => {
         return shipyard;
     };
 
-    return Object.assign(prototype, { getGameboard, getShipyard });
+    const getMiniShipyard = () => {
+        return miniShipyard;
+    }
+
+    return Object.assign(prototype, { getGameboard, getShipyard, getMiniShipyard });
 };

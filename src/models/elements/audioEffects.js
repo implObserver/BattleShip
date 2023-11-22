@@ -17,7 +17,7 @@ export const nextMoveEffect = (() => {
 
 export const missEffect = (() => {
     let audio = new Audio(missHit);
-    audio.playbackRate = 2;
+    audio.playbackRate = 3;
     return audio;
 })();
 
