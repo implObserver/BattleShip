@@ -171,7 +171,7 @@ export const Ship = (length, player, type) => {
             deck.setTheHit();
         })
         container.style.opacity = '0.3';
-        container.style.border = '0.5vh rgba(255, 0, 0, 1) solid';
+        container.style.border = 'min(0.5vh, 0.5vw) rgba(255, 0, 0, 1) solid';
         live = false;
     }
 

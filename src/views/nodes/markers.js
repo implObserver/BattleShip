@@ -1,6 +1,5 @@
 import { appendChilds, setAttributes } from "../../helper/helper";
 import { CrossAttributes } from "../../models/elements/attributes";
-import { Cross } from "../../models/elements/templates";
 import { drawCross } from "../animations/markers";
 
 export const createCrossSVG = () => {
@@ -15,7 +14,7 @@ export const createCrossSVG = () => {
 
 export const viewCross = (svg) => {
     const animations = [
-        drawCross(svg, 200, 'forwards', [{ strokeDashoffset: '5vh' }, { strokeDashoffset: '0vh' }])
+        drawCross(svg, 200, 'forwards', [{ strokeDashoffset: 'min(5vh ,5vw)' }, { strokeDashoffset: 'min(0vh ,0vw)' }])
     ]
     return animations;
 }

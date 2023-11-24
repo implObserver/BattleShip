@@ -16,7 +16,13 @@ export const viewAccurateHit = (cell) => {
 }
 
 export const appendCrossSvg = (deck) => {
+    let copyCross = document.querySelector('.cross').cloneNode(true);
+    copyCross.classList.remove('hidden');
     let cross = Cross();
-    cross.view();
     deck.getCellNode().appendChild(cross.getSvg());
+    cross.view();
+    setTimeout(() => {
+        deck.getCellNode().removeChild(cross.getSvg());
+        deck.getCellNode().appendChild(copyCross);
+    }, 500);
 }

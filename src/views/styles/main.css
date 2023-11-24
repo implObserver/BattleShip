@@ -354,3 +354,7 @@ span {
         grid-template-columns: min-content min-content;
     }
 }
+
+.cross {
+    border: 1px red solid
+}
