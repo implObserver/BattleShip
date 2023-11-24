@@ -1,4 +1,5 @@
 import { removeChilds } from '../helper/helper';
+import { setNormalOpacity } from '../views/animations/changeVisible';
 import { getNode } from '../views/nodes/factory';
 
 export const Cell = (x = -1, y = -1, name = 'cell') => {
@@ -49,6 +50,7 @@ export const Cell = (x = -1, y = -1, name = 'cell') => {
         node.classList.remove('miss-hit');
         node.classList.remove('destroyed');
         removeChilds(node);
+        setNormalOpacity(node);
     }
 
     return {

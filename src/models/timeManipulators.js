@@ -1,6 +1,7 @@
 import { game } from "..";
 import { removeChilds } from "../helper/helper";
 import { getRandomCell } from "../views/nodes/ship";
+import { timerEffect } from "./elements/audioEffects";
 import { Timer } from "./elements/templates";
 
 
@@ -8,6 +9,7 @@ export const TimeManipulators = () => {
     let timeOfTheMove;
     let aiSpeedOfTought;
     let timeBetweenMoves;
+    let alarm;
     let timer = Timer();
     document.querySelector('.timer').appendChild(timer.getSvg());
 
@@ -29,12 +31,16 @@ export const TimeManipulators = () => {
         timeOfTheMove = setInterval(() => {
             game.gameHandler.switchMove();
         }, 15000);
+        alarm = setTimeout(() => {
+            timerEffect.play();
+        }, 10000);
     }
 
     const reset = () => {
         timer.reset();
         clearTimeout(aiSpeedOfTought);
         clearTimeout(timeBetweenMoves);
+        clearTimeout(alarm);
         clearInterval(timeOfTheMove);
     }
 

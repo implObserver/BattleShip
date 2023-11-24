@@ -1,10 +1,14 @@
 import { setListenersForLinks } from "../controllers/listeners/forLinks";
 import { setListenersForCells, setListenersForExitButton, setListenersForPlayButton } from "../controllers/listeners/forPlay";
+import { setListenersforPopups } from "../controllers/listeners/forPopups";
 import { setListenersForShips } from "../controllers/listeners/forShips";
-import { removeHidden, removeNullOpacity, setHidden } from "../views/animations/changeVisible";
+import { removeHidden, removeNullOpacity, setHidden, setLowOpacity } from "../views/animations/changeVisible";
+import { viewAccurateHit, viewMissHit } from "../views/nodes/hits";
+import { viewLosePopup, viewWinPopup } from "../views/nodes/popups";
 import { viewProfile } from "../views/nodes/profile";
 import { viewShipyard } from "../views/nodes/shipyard";
-import { hiddenInterfaceBeforeStartPlay, setAiMoveDesign, setMiniShipyardDesign, setPlayerMoveDesign, viewInterfaceAfterEndGame } from "../views/nodes/ui";
+import { hiddenInterfaceBeforeStartPlay, setAiMoveDesign, setKilledShipDesign, setMiniShipyardDesign, setPlayerMoveDesign, viewInterfaceAfterEndGame } from "../views/nodes/ui";
+import { CellHandler } from "./cellHandler";
 import { drawCross, killShipEffect, missEffect, nextMoveEffect } from "./elements/audioEffects";
 import { Cross } from "./elements/templates";
 import { Profile } from "./player";
@@ -31,6 +35,7 @@ export const Game = () => {
         setListenersForLinks();
         setListenersForPlayButton();
         setListenersForExitButton();
+        setListenersforPopups();
     }
 
     const setGamePlayListeners = () => {
@@ -41,7 +46,7 @@ export const Game = () => {
         setDefaultListeners();
         viewDefaulInterfaces();
         gameHandler.fillBoardsToRandomShips();
-        ai.getGameboard().hiddenShips();
+        //ai.getGameboard().hiddenShips();
     }
 
     const play = () => {
@@ -53,23 +58,25 @@ export const Game = () => {
         removeHidden(player.getMiniShipyard().getNode())
         gameHandler.playerMove();
         timeManipulators.setTimeOfTheMove();
-        document.querySelector('.x-axis').classList.add('correct')
     }
 
     const end = () => {
-        document.querySelector('.x-axis').classList.remove('correct')
         setHidden(ai.getMiniShipyard().getNode())
         setHidden(player.getMiniShipyard().getNode())
+        ai.getMiniShipyard().reset()
+        player.getMiniShipyard().reset()
         timeManipulators.reset();
         viewInterfaceAfterEndGame();
         endGameState();
     }
 
     const playGameState = () => {
+        document.querySelector('.x-axis').classList.add('correct')
         player.getGameboard().blockShips();
     }
 
     const endGameState = () => {
+        document.querySelector('.x-axis').classList.remove('correct')
         ai.getGameboard().block();
         ai.getGameboard().reset();
         player.getGameboard().unblockShips();
@@ -93,10 +100,14 @@ const GameHandler = (ai, player, timeManipulators) => {
         aiCells = [...ai.getGameboard().getUnstructedContainer()];
     }
 
+    const getActivePlayer = () => {
+        return move === 'ai' ? ai : player;
+    }
+
     const switchMove = () => {
-        nextMoveEffect.play();
         timeManipulators.reset();
         if (isEndGame()) {
+            openPopup();
             return false;
         } else if (move === 'ai') {
             timeManipulators.setTimeOfTheMove();
@@ -146,39 +157,73 @@ const GameHandler = (ai, player, timeManipulators) => {
 
     const takeHit = (cell) => {
         const ship = cell.getOccupant();
+        cell.setTheHit();
         if (ship === 'free') {
-            missEffect.play();
-            cell.getCellNode().classList.add('miss-hit');
+            viewMissHit(cell);
         } else {
-            const deck = cell.getLinkedDeck();
-            removeNullOpacity(deck.getCellNode());
-            deck.setTheHit();
-            let cross = Cross();
-            cross.view();
-            deck.getCellNode().appendChild(cross.getSvg());
-            drawCross.play()
-            if (!ship.isLive()) {
-                killShipEffect.play();
-                ship.getContainer().style.opacity = '0.3';
-                ship.getContainer().style.border = '0.5vh rgba(255, 0, 0, 1) solid';
-                const type = ship.getType();
-                let ships;
-                if (move === 'ai') {
-                    ships = ai.getMiniShipyard().getShipsOfType(type);
-                } else {
-                    ships = player.getMiniShipyard().getShipsOfType(type);
-                }
-                console.log(ships)
-                let killedShip = null;
-                ships.forEach(ship => {
-                    if (ship.isLive()) {
-                        if (killedShip === null) {
-                            killedShip = ship;
-                        }
-                    }
-                })
+            viewAccurateHit(cell);
+            if (checkLiveShip(ship)) {
+                hitAllDiags(cell);
+            }
+            move = move === 'ai' ? 'player' : 'ai';
+        }
+    }
 
-                killedShip.kill();
+    const checkLiveShip = (ship) => {
+        if (!ship.isLive()) {
+            killShipEffect.play();
+            setKilledShipDesign(ship);
+            let miniShip = getMiniShip(ship);
+            miniShip.kill();
+            hitAllAreaAroundShip(ship)
+        }
+        return ship.isLive();
+    }
+
+    const hitAllAreaAroundShip = (ship) => {
+        const area = ship.getWaterAreas().getAreaAroundTheShip();
+        area.forEach(cell => {
+            if (!cell.isHit()) {
+                setLowOpacity(cell.getCellNode());
+            }
+            viewMissHit(cell);
+            removeCell(cell);
+        });
+    }
+
+    const removeCell = (cell) => {
+        let cells = move === 'ai' ? playerCells : aiCells;
+        let index = cells.indexOf(cell);
+        if (index > -1) {
+            cells.splice(index, 1);
+        }
+    }
+
+    const hitAllDiags = (hitCell) => {
+        const handler = CellHandler();
+        const x = hitCell.getXY().x;
+        const y = hitCell.getXY().y;
+        const opponent = move === 'ai' ? player : ai;
+        const parent = opponent.getGameboard().getStructedContainer();
+        const cells = handler.getDiads(x, y, parent);
+        cells.forEach(cell => {
+            if (cell !== hitCell) {
+                if (!cell.isHit()) {
+                    setLowOpacity(cell.getCellNode());
+                }
+                viewMissHit(cell);
+                removeCell(cell);
+            }
+        });
+    }
+
+    const getMiniShip = (ship) => {
+        const type = ship.getType();
+        const activePlayer = getActivePlayer();
+        const ships = activePlayer.getMiniShipyard().getShipsOfType(type);
+        for (let i = 0; i < ships.length; i++) {
+            if (ships[i].isLive()) {
+                return ships[i];
             }
         }
     }
@@ -186,6 +231,10 @@ const GameHandler = (ai, player, timeManipulators) => {
     const fillBoardsToRandomShips = () => {
         ai.getGameboard().randomFillingOfShips();
         player.getGameboard().randomFillingOfShips();
+    }
+
+    const openPopup = () => {
+        move === 'player' ? viewLosePopup() : viewWinPopup()
     }
 
     return { checkCell, playerMove, setDefaultSettings, switchMove, takeHit, isEndGame, fillBoardsToRandomShips };

@@ -1,5 +1,6 @@
 import { appendChilds, setAttributes } from "../../helper/helper";
 import { CrossAttributes } from "../../models/elements/attributes";
+import { Cross } from "../../models/elements/templates";
 import { drawCross } from "../animations/markers";
 
 export const createCrossSVG = () => {

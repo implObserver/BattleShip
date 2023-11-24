@@ -11,10 +11,10 @@
 }
 
 :root {
-    font-size: 2vh;
+    font-size: min(2vh, 2vw);
     --board-width: 0;
     --board-height: 0;
-    --cell-size: 5vh;
+    --cell-size: min(5vh, 5vw);
 }
 
 html {
@@ -23,16 +23,15 @@ html {
 
 .wrapper {
     display: grid;
-    grid-template-rows: min-content 1fr;
-    justify-items: center;
-    align-content: center;
+    grid-template-rows: min-content min-content min-content;
     max-width: 100%;
     max-height: 100%;
-    row-gap: 2vh;
+    row-gap: min(2vh, 2vw);
+    height: min-content;
 }
 
 span {
-    padding: 1vh;
+    padding: min(1vh, 1vw);
     height: min-content;
     min-width: max-content;
 }
@@ -42,7 +41,8 @@ span {
     grid-template-columns: 1fr 1fr min-content;
     justify-items: center;
     width: 100%;
-    padding: 2vh;
+    height: min-content;
+    padding: min(2vh, 2vw);
 }
 
 .title {
@@ -54,7 +54,7 @@ span {
     display: grid;
     background-color: rgba(128, 128, 128, 0.2);
     align-items: center;
-    padding: 1vh;
+    padding: min(1vh, 1vw);
     border-radius: min(2vh, 2vw);
     height: min-content;
 }
@@ -66,25 +66,26 @@ span {
 .main {
     display: grid;
     width: 100%;
+    max-width: inherit;
     justify-content: center;
     align-items: center;
-    grid-template-columns: min-content min-content;
-    height: min-content;
+    height: max-content;
 }
 
 .shipyard {
     display: grid;
     align-content: center;
     grid-template-rows: repeat(4, min-content);
-    row-gap: 6vh;
-    padding: 2vh;
-    width: 40vh;
-    height: 40vh;
+    row-gap: min(6vh, 6vw);
+    padding: min(2vh, 2vw);
+    width: min(40vh, 40vw);
+    height: min(40vh, 40vw);
+    max-width: min(50vh, 50vw);
 }
 
 .dock {
     display: flex;
-    column-gap: 4vh;
+    column-gap: min(4vh, 4vw);
     height: min-content;
 }
 
@@ -95,10 +96,10 @@ span {
 .board__axis-wrapper {
     display: grid;
     grid-template-rows: min-content min-content;
-    row-gap: 2vh;
+    row-gap: min(2vh, 2vw);
     width: min-content;
-    height: 100%;
-    padding: 5vh;
+    height: min-content;
+    padding: min(5vh, 5vw);
 }
 
 .axis-wrapper {
@@ -110,13 +111,12 @@ span {
 .x-axis {
     display: grid;
     width: min-content;
-    padding-left: 5.5vh;
+    padding-left: min(5.5vh, 5.5vw);
     grid-template-columns: repeat(var(--board-width), 2fr);
-    padding-right: 0.5vh;
 }
 
 .correct {
-    padding-left: 30vh;
+    padding-left: min(32vh, 32vw);
 }
 
 .board-wrapper {
@@ -136,7 +136,8 @@ span {
     display: inline-grid;
     grid-template-columns: repeat(var(--board-width), 2fr);
     grid-template-rows: repeat(var(--board-height), 2fr);
-    border: 0.5vh rgba(0, 0, 255, 0.2) solid;
+    border: min(0.5vh, 0.5vw) rgba(0, 0, 255, 0.2) solid;
+
 }
 
 .play {
@@ -144,10 +145,10 @@ span {
     display: grid;
     justify-self: center;
     align-self: center;
-    width: 10vh;
-    height: 10vh;
+    width: min(10vh, 10vw);
+    height: min(10vh, 10vw);
     background-color: rgba(119, 202, 41, 0.726);
-    border: 1vh rgb(119, 202, 41) solid;
+    border: min(1vh, 1vw) rgb(119, 202, 41) solid;
     z-index: 998;
 }
 
@@ -156,8 +157,8 @@ span {
     display: grid;
     width: min-content;
     height: min-content;
-    row-gap: 2vh;
-    padding: 3vh;
+    row-gap: min(2vh, 2vw);
+    padding: min(3vh, 3vw);
 }
 
 .ai-mini-shipyard {
@@ -183,7 +184,7 @@ span {
 .marker {
     display: grid;
     justify-content: center;
-    padding-left: 5vh;
+    padding-left: min(5vh, 5vw);
 }
 
 .cell {
@@ -197,12 +198,12 @@ span {
 }
 
 .miss-hit {
-    background-image: url(/src/views/images/crack.png);
+    background-image: url(/src/views/images/dot.svg);
     background-size: 100% 100%;
 }
 
 .destroyed {
-    background-color: rgba(248, 7, 7, 0.541) !important;
+    background-color: rgba(247, 190, 190, 0.473) !important;
 }
 
 .live {}
@@ -216,7 +217,7 @@ span {
 
 .marine-sector {
     display: grid;
-    border: 0.1vh rgba(0, 0, 255, 0.2) solid;
+    border: min(0.1vh, 0.1vw) rgba(0, 0, 255, 0.2) solid;
 }
 
 .ship {
@@ -227,7 +228,7 @@ span {
     width: min-content;
     margin-left: -1px;
     margin-top: -1px;
-    border: 0.3vh rgba(0, 0, 255, 1) solid;
+    border: min(0.3vh, 0.3vw) rgba(0, 0, 255, 1) solid;
 }
 
 .horizontal {
@@ -244,11 +245,16 @@ span {
     z-index: 999;
 }
 
-.mini {
-    width: 1.5vh;
-    height: 1.5vh;
+.mini-ship {
+    height: min-content !important;
+    width: min-content !important;
+}
+
+.mini-cell {
+    width: min(2vh, 2vw);
+    height: min(2vh, 2vw);
     background-color: rgba(0, 255, 0, 0.1);
-    border: 0.3vh rgba(0, 255, 255, 1) solid;
+    border: min(0.3vh, 0.3vw) rgba(0, 255, 255, 1) solid;
 }
 
 .footer {
@@ -256,7 +262,7 @@ span {
     grid-template-columns: min-content min-content;
     width: 100%;
     justify-content: center;
-    gap: 4vh;
+    gap: min(4vh, 4vw);
 }
 
 .random-mode,
@@ -277,7 +283,7 @@ span {
 .timer {
     display: grid;
     width: 100vw;
-    height: 2vh;
+    height: min(2vh, 2vw);
     justify-self: start;
 }
 
@@ -292,4 +298,59 @@ span {
 
 .null-opacity {
     opacity: 0;
+}
+
+.popup-win,
+.popup-lose {
+    position: fixed;
+    display: grid;
+    grid-template-rows: repeat(auto-fit, min-content);
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    top: 0;
+    left: 0;
+    justify-items: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    padding: min(1vh, 1vw);
+    z-index: 1000;
+}
+
+.text {
+    display: grid;
+    color: white;
+    font-size: min(10vh, 10vw);
+}
+
+.win,
+.lose {
+    display: grid;
+    grid-template-rows: repeat(3, min-content);
+    height: min-content;
+    justify-items: center;
+    z-index: 2000;
+}
+
+.gif-container {
+    display: flex;
+    justify-self: center;
+    width: 100vh;
+    height: 0;
+    padding-bottom: 56vh;
+    position: relative;
+    pointer-events: none;
+}
+
+@media screen and (max-aspect-ratio: 1/1.0000001) {
+    .main {
+        grid-template-rows: min-content min-content;
+    }
+}
+
+@media screen and (min-aspect-ratio: 2/1) {
+    .main {
+        grid-template-columns: min-content min-content;
+    }
 }

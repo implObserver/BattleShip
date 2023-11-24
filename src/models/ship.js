@@ -124,16 +124,16 @@ export const Ship = (length, player, type) => {
     const setVertical = () => {
         container.classList.remove('horizontal');
         container.classList.add('vertical');
-        container.style.height = `${length * 5}vh`;
-        container.style.width = `5vh`;
+        container.style.height = `min(${length * 5}vh,${length * 5}vw)`;
+        container.style.width = `min(5vh,5vw)`;
         horizontal = false;
     };
 
     const setHorizontal = () => {
         container.classList.remove('vertical');
         container.classList.add('horizontal');
-        container.style.width = `${length * 5}vh`;
-        container.style.height = `5vh`;
+        container.style.width = `min(${length * 5}vh,${length * 5}vw)`;
+        container.style.height = `min(5vh,5vw)`;
         horizontal = true;
     };
 
@@ -155,7 +155,7 @@ export const Ship = (length, player, type) => {
 
     const resetBody = () => {
         container.style.opacity = '1';
-        container.style.border = '0.3vh rgba(0, 0, 255, 1) solid';
+        container.style.border = 'min(0.3vh, 0.3vw) rgba(0, 0, 255, 1) solid';
         body.forEach(deck => {
             deck.reset();
         })
@@ -173,6 +173,10 @@ export const Ship = (length, player, type) => {
         container.style.opacity = '0.3';
         container.style.border = '0.5vh rgba(255, 0, 0, 1) solid';
         live = false;
+    }
+
+    const getWaterAreas = () => {
+        return shipWaterAreas
     }
 
     fillContainer();
@@ -196,7 +200,8 @@ export const Ship = (length, player, type) => {
         setYourself,
         getYourself,
         getType,
-        kill
+        kill,
+        getWaterAreas
     };
 };
 

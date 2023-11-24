@@ -1,9 +1,10 @@
 import { game } from "../..";
+import { clickEffect } from "../../models/elements/audioEffects";
 
 export const setListenersForPlayButton = () => {
     const button = document.querySelector('.play');
-
     const click = button.addEventListener('click', e => {
+        clickEffect.play();
         game.play();
     })
 }
@@ -12,6 +13,7 @@ export const setListenersForExitButton = () => {
     const button = document.querySelector('.exit');
 
     const click = button.addEventListener('click', e => {
+        clickEffect.play();
         game.end();
     })
 }

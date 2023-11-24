@@ -1,5 +1,6 @@
 import { game } from '../..';
 import { randomIntFromInterval } from '../../helper/helper';
+import { Session } from '../../models/session';
 import { removeHidden, setHidden } from '../animations/changeVisible';
 
 export const viewShip = (ship, head) => {
@@ -13,10 +14,12 @@ export const viewShip = (ship, head) => {
 };
 
 const checkShipyard = () => {
-    if (game.player.getShipyard().isEmpty()) {
-        setTimeout(() => {
-            closeManualMenu();
-        }, 500);
+    if (Session.manualMode) {
+        if (game.player.getShipyard().isEmpty()) {
+            setTimeout(() => {
+                closeManualMenu();
+            }, 500);
+        }
     }
 };
 

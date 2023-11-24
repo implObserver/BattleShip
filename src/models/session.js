@@ -4,7 +4,8 @@ export const Session = (() => {
     let doubleIndex = 'ship';
     let currentElement = null;
     let choisedCell = null;
-    return { activeShip, index, doubleIndex, currentElement, choisedCell };
+    let manualMode = false;
+    return { manualMode, activeShip, index, doubleIndex, currentElement, choisedCell };
 })();
 
 export const resetSession = () => {

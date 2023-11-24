@@ -35,9 +35,20 @@ export const setAiMoveDesign = (ai, player) => {
 
 export const setMiniShipyardDesign = (shipyard) => {
     const decks = shipyard.getNode().querySelectorAll('.deck');
-    const ships = shipyard.getAllShips();
-    
-    decks.forEach(deck => {
-        deck.classList.add('mini')
+    const ships = shipyard.getNode().querySelectorAll('.ship');
+    ships.forEach(ship => {
+        ship.classList.add('mini-ship')
     })
+    decks.forEach(deck => {
+        deck.classList.add('mini-cell')
+    })
+}
+
+export const setKilledShipDesign = (ship) => {
+    ship.getContainer().style.opacity = '0.3';
+    ship.getContainer().style.border = '0.5vh rgba(255, 0, 0, 1) solid';
+}
+
+export const setKilledMiniShipDesign = (ship) => {
+    
 }
