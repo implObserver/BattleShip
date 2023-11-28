@@ -46,7 +46,7 @@ export const Game = () => {
         setDefaultListeners();
         viewDefaulInterfaces();
         gameHandler.fillBoardsToRandomShips();
-        //ai.getGameboard().hiddenShips();
+        ai.getGameboard().hiddenShips();
     }
 
     const play = () => {
@@ -58,6 +58,8 @@ export const Game = () => {
         removeHidden(player.getMiniShipyard().getNode())
         gameHandler.playerMove();
         timeManipulators.setTimeOfTheMove();
+        setMiniShipyardDesign(player.getMiniShipyard())
+        setMiniShipyardDesign(ai.getMiniShipyard())
     }
 
     const end = () => {
@@ -160,19 +162,22 @@ const GameHandler = (ai, player, timeManipulators) => {
         cell.setTheHit();
         if (ship === 'free') {
             viewMissHit(cell);
+            missEffect.play();
         } else {
             viewAccurateHit(cell);
-            if (checkLiveShip(ship)) {
-                hitAllDiags(cell);
-            }
-            move = move === 'ai' ? 'player' : 'ai';
+            setTimeout(() => {
+                if (checkLiveShip(ship)) {
+                    hitAllDiags(cell);
+                }
+                move = move === 'ai' ? 'player' : 'ai';
+            }, 500);
         }
     }
 
     const checkLiveShip = (ship) => {
         if (!ship.isLive()) {
             killShipEffect.play();
-            setKilledShipDesign(ship);
+            ship.kill();
             let miniShip = getMiniShip(ship);
             miniShip.kill();
             hitAllAreaAroundShip(ship)

@@ -11,10 +11,10 @@
 }
 
 :root {
-    font-size: min(2vh, 2vw);
+    font-size: 1vh;
     --board-width: 0;
     --board-height: 0;
-    --cell-size: min(5vh, 5vw);
+    --cell-size: min(5vh, 2vw);
 }
 
 html {
@@ -24,14 +24,17 @@ html {
 .wrapper {
     display: grid;
     grid-template-rows: min-content min-content min-content;
-    max-width: 100%;
-    max-height: 100%;
-    row-gap: min(2vh, 2vw);
-    height: min-content;
+    width: 100%;
+    height: 100%;
+    row-gap: min(2vh, 0.8vw);
+    justify-items: center;
+    width: min-content;
+    row-gap: 10vh;
 }
 
 span {
-    padding: min(1vh, 1vw);
+    display: grid;
+    padding: min(1vh, 0.4vw);
     height: min-content;
     min-width: max-content;
 }
@@ -42,7 +45,7 @@ span {
     justify-items: center;
     width: 100%;
     height: min-content;
-    padding: min(2vh, 2vw);
+    padding: min(2vh, 0.8vw);
 }
 
 .title {
@@ -55,7 +58,7 @@ span {
     background-color: rgba(128, 128, 128, 0.2);
     align-items: center;
     padding: min(1vh, 1vw);
-    border-radius: min(2vh, 2vw);
+    border-radius: min(2vh, 0.8vw);
     height: min-content;
 }
 
@@ -65,27 +68,27 @@ span {
 
 .main {
     display: grid;
-    width: 100%;
+    width: min-content;
     max-width: inherit;
+    justify-items: center;
     justify-content: center;
-    align-items: center;
-    height: max-content;
 }
 
 .shipyard {
     display: grid;
     align-content: center;
     grid-template-rows: repeat(4, min-content);
-    row-gap: min(6vh, 6vw);
-    padding: min(2vh, 2vw);
-    width: min(40vh, 40vw);
-    height: min(40vh, 40vw);
-    max-width: min(50vh, 50vw);
+    row-gap: min(6vh, 2.4vw);
+    padding: min(2vh, 0.8vw);
+    width: min(40vh, 16vw);
+    height: min(40vh, 16vw);
+    max-width: min(50vh, 20vw);
+    align-self: center;
 }
 
 .dock {
     display: flex;
-    column-gap: min(4vh, 4vw);
+    column-gap: min(4vh, 1.6vw);
     height: min-content;
 }
 
@@ -95,11 +98,12 @@ span {
 
 .board__axis-wrapper {
     display: grid;
-    grid-template-rows: min-content min-content;
-    row-gap: min(2vh, 2vw);
+    grid-template-rows: 1fr min-content;
+    row-gap: min(2vh, 0.8vw);
     width: min-content;
     height: min-content;
-    padding: min(5vh, 5vw);
+    justify-items: center;
+    padding: min(5vh, 2vw);
 }
 
 .axis-wrapper {
@@ -108,45 +112,48 @@ span {
     grid-template-rows: min-content 1fr;
 }
 
-.x-axis {
-    display: grid;
-    width: min-content;
-    padding-left: min(5.5vh, 5.5vw);
-    grid-template-columns: repeat(var(--board-width), 2fr);
-}
-
-.correct {
-    padding-left: min(32vh, 32vw);
-}
-
 .board-wrapper {
     display: grid;
-    grid-template-columns: min-content min-content;
-    grid-template-areas: 'player-mini-shipyard axis-y board ai-mini-shipyard';
+    grid-template-areas:
+        'axis-x axis-x axis-x'
+        'shipyard axis-y board';
+}
+
+.x-axis {
+    display: grid;
+    grid-area: axis-x;
+    width: min-content;
+    height: min-content;
+    justify-self: end;
+    grid-template-columns: repeat(var(--board-width), max(var(--cell-size), 2vh));
+
 }
 
 .y-axis {
     display: grid;
     grid-area: axis-y;
     grid-template-rows: repeat(var(--board-height), 2fr);
+    width: min-content;
 }
 
 .board {
+    display: grid;
     grid-area: board;
-    display: inline-grid;
     grid-template-columns: repeat(var(--board-width), 2fr);
     grid-template-rows: repeat(var(--board-height), 2fr);
-    border: min(0.5vh, 0.5vw) rgba(0, 0, 255, 0.2) solid;
+    border: min(0.5vh, 0.2vw) rgba(0, 0, 255, 0.2) solid;
 
 }
 
 .play {
-    grid-area: board;
     display: grid;
+    grid-area: board;
     justify-self: center;
     align-self: center;
     width: min(10vh, 10vw);
     height: min(10vh, 10vw);
+    min-width: 2vh;
+    min-height: 2vh;
     background-color: rgba(119, 202, 41, 0.726);
     border: min(1vh, 1vw) rgb(119, 202, 41) solid;
     z-index: 998;
@@ -157,17 +164,10 @@ span {
     display: grid;
     width: min-content;
     height: min-content;
-    row-gap: min(2vh, 2vw);
-    padding: min(3vh, 3vw);
+    row-gap: min(2vh, 0.8vw);
+    padding: min(3vh, 1.2vw);
 }
 
-.ai-mini-shipyard {
-    grid-area: ai-mini-shipyard;
-}
-
-.player-mini-shipyard {
-    grid-area: player-mini-shipyard;
-}
 
 .low-opacity {
     opacity: 0.4;
@@ -183,8 +183,8 @@ span {
 
 .marker {
     display: grid;
-    justify-content: center;
-    padding-left: min(5vh, 5vw);
+    justify-self: right;
+    width: min-content;
 }
 
 .cell {
@@ -195,6 +195,8 @@ span {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+    min-width: 2vh;
+    min-height: 2vh;
 }
 
 .miss-hit {
@@ -224,11 +226,11 @@ span {
     display: grid;
     align-content: center;
     justify-content: center;
-    height: min-content;
-    width: min-content;
     margin-left: -1px;
     margin-top: -1px;
-    border: min(0.3vh, 0.3vw) rgba(0, 0, 255, 1) solid;
+    border: min(0.1vh, 0.1vw) rgba(0, 0, 255, 1) solid;
+    width: min-content;
+    height: min-content;
 }
 
 .horizontal {
@@ -251,10 +253,12 @@ span {
 }
 
 .mini-cell {
-    width: min(2vh, 2vw);
-    height: min(2vh, 2vw);
+    min-width: 1vh;
+    min-height: 1vh;
+    width: min(2vh, 0.8vw);
+    height: min(2vh, 0.8vw);
     background-color: rgba(0, 255, 0, 0.1);
-    border: min(0.3vh, 0.3vw) rgba(0, 255, 255, 1) solid;
+    border: min(0.1vh, 0.1vw) rgba(0, 255, 255, 1) solid;
 }
 
 .footer {
@@ -262,7 +266,7 @@ span {
     grid-template-columns: min-content min-content;
     width: 100%;
     justify-content: center;
-    gap: min(4vh, 4vw);
+    gap: min(4vh, 1.6vw);
 }
 
 .random-mode,
@@ -283,7 +287,7 @@ span {
 .timer {
     display: grid;
     width: 100vw;
-    height: min(2vh, 2vw);
+    height: min(2vh, 0.8vw);
     justify-self: start;
 }
 
@@ -336,20 +340,21 @@ span {
 .gif-container {
     display: flex;
     justify-self: center;
-    width: 100vh;
+    width: min(100vh, 100vw);
     height: 0;
-    padding-bottom: 56vh;
+    padding-bottom: min(56vh, 22.4vw);
     position: relative;
     pointer-events: none;
 }
 
-@media screen and (max-aspect-ratio: 1/1.0000001) {
+@media screen and (max-aspect-ratio: 1.00001/1) {
+
     .main {
         grid-template-rows: min-content min-content;
     }
 }
 
-@media screen and (min-aspect-ratio: 2/1) {
+@media screen and (min-aspect-ratio: 1/1) {
     .main {
         grid-template-columns: min-content min-content;
     }

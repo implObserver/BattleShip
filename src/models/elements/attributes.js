@@ -1,22 +1,22 @@
 export const CrossAttributes = (() => {
     const line = [
         { name: 'stroke', val: 'red' },
-        { name: 'stroke-width', val: 'min(0.5vh ,0.5vw)' },
+        { name: 'stroke-width', val: 'min(0.5vh ,max(0.2vw,0.2vh))' },
         { name: 'stroke-linecap', val: 'round' },
-        { name: 'stroke-dasharray', val: 'min(5vh ,5vw)' },
-        { name: 'stroke-dashoffset', val: 'min(5vh ,5vw)' }
+        { name: 'stroke-dasharray', val: 'min(5vh ,max(2vw, 2vh))' },
+        { name: 'stroke-dashoffset', val: 'min(5vh ,max(2vw, 2vh))' }
     ];
     const leftDiag = [
-        { name: 'x1', val: 'min(1vh ,1vw)' },
-        { name: 'y1', val: 'min(1vh ,1vw)' },
-        { name: 'x2', val: 'min(4vh ,4vw)' },
-        { name: 'y2', val: 'min(4vh ,4vw)' },
+        { name: 'x1', val: 'min(1vh ,max(0.4vw, 0.4vh))' },
+        { name: 'y1', val: 'min(1vh ,max(0.4vw, 0.4vh))' },
+        { name: 'x2', val: 'min(4vh ,max(1.6vw, 1.6vh))' },
+        { name: 'y2', val: 'min(4vh ,max(1.6vw, 1.6vh))' },
     ];
     const rightDiag = [
-        { name: 'x2', val: 'min(1vh ,1vw)' },
-        { name: 'y2', val: 'min(4vh ,4vw)' },
-        { name: 'x1', val: 'min(4vh ,4vw)' },
-        { name: 'y1', val: 'min(1vh ,1vw)' },
+        { name: 'x2', val: 'min(1vh ,max(0.4vw, 0.4vh))' },
+        { name: 'y2', val: 'min(4vh ,max(1.6vw, 1.6vh))' },
+        { name: 'x1', val: 'min(4vh ,max(1.6vw, 1.6vh))' },
+        { name: 'y1', val: 'min(1vh ,max(0.4vw, 0.4vh))' },
     ];
     return { line, leftDiag, rightDiag };
 })();

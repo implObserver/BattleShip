@@ -39,3 +39,21 @@ export const getRandomCell = (cells) => {
     let index = randomIntFromInterval(0, cells.length - 1);
     return cells.splice(index, 1)[0];
 };
+
+export const setStandartHorizontalShipDesign = (container, length) => {
+    container.classList.remove('vertical');
+    container.classList.add('horizontal');
+    container.style.width = `min(${length * 5}vh,${length * 2}vw)`;
+    container.style.height = `min(5vh,2vw)`;
+    container.style.minHeight = `2vh`;
+    container.style.minWidth = `${length * 2}vh`;
+}
+
+export const setStandartVerticalShipDesign = (container, length) => {
+    container.classList.remove('horizontal');
+    container.classList.add('vertical');
+    container.style.height = `min(${length * 5}vh,${length * 2}vw)`;
+    container.style.width = `min(5vh,2vw)`;
+    container.style.minHeight = `${length * 2}vh`;
+    container.style.minWidth = `2vh`;
+}

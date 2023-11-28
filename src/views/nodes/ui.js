@@ -43,12 +43,3 @@ export const setMiniShipyardDesign = (shipyard) => {
         deck.classList.add('mini-cell')
     })
 }
-
-export const setKilledShipDesign = (ship) => {
-    ship.getContainer().style.opacity = '0.3';
-    ship.getContainer().style.border = '0.5vh rgba(255, 0, 0, 1) solid';
-}
-
-export const setKilledMiniShipDesign = (ship) => {
-    
-}

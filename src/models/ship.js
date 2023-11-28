@@ -1,6 +1,7 @@
 import { randomIntFromInterval, removeChilds } from '../helper/helper';
 import { setLowOpacity } from '../views/animations/changeVisible';
 import { getNode } from '../views/nodes/factory';
+import { setStandartHorizontalShipDesign, setStandartVerticalShipDesign } from '../views/nodes/ship';
 import { Deck } from './cell';
 import { Cross } from './elements/templates';
 import { ShipWaterAreas } from './waterAreas';
@@ -122,18 +123,12 @@ export const Ship = (length, player, type) => {
     };
 
     const setVertical = () => {
-        container.classList.remove('horizontal');
-        container.classList.add('vertical');
-        container.style.height = `min(${length * 5}vh,${length * 5}vw)`;
-        container.style.width = `min(5vh,5vw)`;
+        setStandartVerticalShipDesign(container, length);
         horizontal = false;
     };
 
     const setHorizontal = () => {
-        container.classList.remove('vertical');
-        container.classList.add('horizontal');
-        container.style.width = `min(${length * 5}vh,${length * 5}vw)`;
-        container.style.height = `min(5vh,5vw)`;
+        setStandartHorizontalShipDesign(container, length);
         horizontal = true;
     };
 
@@ -147,7 +142,9 @@ export const Ship = (length, player, type) => {
 
     const reset = () => {
         head = null;
-        setHorizontal();
+        if (!container.classList.contains('mini-ship')) {
+            setHorizontal();
+        }
         resetBody();
         shipWaterAreas.clearAreas();
         shipWaterAreas = ShipWaterAreas(player, ship);
@@ -155,7 +152,7 @@ export const Ship = (length, player, type) => {
 
     const resetBody = () => {
         container.style.opacity = '1';
-        container.style.border = 'min(0.3vh, 0.3vw) rgba(0, 0, 255, 1) solid';
+        container.style.border = 'min(0.1vh, 0.1vw) rgba(0, 0, 255, 1) solid';
         body.forEach(deck => {
             deck.reset();
         })
@@ -171,7 +168,7 @@ export const Ship = (length, player, type) => {
             deck.setTheHit();
         })
         container.style.opacity = '0.3';
-        container.style.border = 'min(0.5vh, 0.5vw) rgba(255, 0, 0, 1) solid';
+        container.style.border = 'min(0.1vh, 0.1vw) rgba(255, 0, 0, 1) solid';
         live = false;
     }
 

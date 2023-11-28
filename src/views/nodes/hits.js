@@ -3,7 +3,6 @@ import { Cross } from "../../models/elements/templates";
 import { removeNullOpacity } from "../animations/changeVisible";
 
 export const viewMissHit = (cell) => {
-    missEffect.play();
     cell.getCellNode().classList.add('miss-hit');
 }
 

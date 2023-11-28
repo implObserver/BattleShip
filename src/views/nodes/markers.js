@@ -14,7 +14,7 @@ export const createCrossSVG = () => {
 
 export const viewCross = (svg) => {
     const animations = [
-        drawCross(svg, 200, 'forwards', [{ strokeDashoffset: 'min(5vh ,5vw)' }, { strokeDashoffset: 'min(0vh ,0vw)' }])
+        drawCross(svg, 200, 'forwards', [{ strokeDashoffset: 'min(5vh ,2vw)' }, { strokeDashoffset: 'min(0vh ,0vw)' }])
     ]
     return animations;
 }
