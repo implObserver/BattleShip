@@ -31,17 +31,15 @@
             </div>
 
             <div class="player-board board__axis-wrapper">
-                <div class="axis-wrapper">
-                    <div class="x-axis"></div>
-                    <div class="board-wrapper">
-                        <div class="y-axis"></div>
-                        <div class="board"></div>
-                        <div class="player-mini-shipyard hidden">
-                            <div class="dock fregats"></div>
-                            <div class="dock caravels"></div>
-                            <div class="dock drakkars"></div>
-                            <div class="dock boats"></div>
-                        </div>
+                <div class="board-wrapper">
+                    <div class="player-x x-axis"></div>
+                    <div class="y-axis"></div>
+                    <div class="board"></div>
+                    <div class="player-mini-shipyard hidden">
+                        <div class="dock fregats"></div>
+                        <div class="dock caravels"></div>
+                        <div class="dock drakkars"></div>
+                        <div class="dock boats"></div>
                     </div>
                 </div>
                 <div class="marker">
@@ -58,23 +56,21 @@
             </div>
 
             <div class="ai-board board__axis-wrapper">
-                <div class="axis-wrapper">
-                    <div class="x-axis low-opacity"></div>
-                    <div class="board-wrapper">
-                        <div class="y-axis low-opacity"></div>
-                        <div class="board low-opacity"></div>
-                        <div class="play">
-                            <svg class="play-svg" xmlns="http://www.w3.org/2000/svg" fill="rgba(255, 251, 219, 0.726)"
-                                viewBox="0 0 24 24" stroke="rgba(119, 202, 41, 0.726)">
-                                <path d="M8,5.14V19.14L19,12.14L8,5.14Z" />
-                            </svg>
-                        </div>
-                        <div class="ai-mini-shipyard hidden">
-                            <div class="dock fregats"></div>
-                            <div class="dock caravels"></div>
-                            <div class="dock drakkars"></div>
-                            <div class="dock boats"></div>
-                        </div>
+                <div class="board-wrapper">
+                    <div class="ai-x x-axis low-opacity"></div>
+                    <div class="y-axis low-opacity"></div>
+                    <div class="board low-opacity"></div>
+                    <div class="play">
+                        <svg class="play-svg" xmlns="http://www.w3.org/2000/svg" fill="rgba(255, 251, 219, 0.726)"
+                            viewBox="0 0 24 24" stroke="rgba(119, 202, 41, 0.726)">
+                            <path d="M8,5.14V19.14L19,12.14L8,5.14Z" />
+                        </svg>
+                    </div>
+                    <div class="ai-mini-shipyard hidden">
+                        <div class="dock fregats"></div>
+                        <div class="dock caravels"></div>
+                        <div class="dock drakkars"></div>
+                        <div class="dock boats"></div>
                     </div>
                 </div>
                 <div class="marker">
@@ -116,10 +112,12 @@
         </div>
     </div>
 
-    <svg class="cross hidden" style="width: min(5vh,5vw); height: min(5vh,5vw);vertical-align: middle;fill: red;overflow: hidden;" viewBox="60 60 910 910" version="1.1"
-    xmlns="http://www.w3.org/2000/svg">
-    <path d="M810.65984 170.65984q18.3296 0 30.49472 12.16512t12.16512 30.49472q0 18.00192-12.32896 30.33088l-268.67712 268.32896 268.67712 268.32896q12.32896 12.32896 12.32896 30.33088 0 18.3296-12.16512 30.49472t-30.49472 12.16512q-18.00192 0-30.33088-12.32896l-268.32896-268.67712-268.32896 268.67712q-12.32896 12.32896-30.33088 12.32896-18.3296 0-30.49472-12.16512t-12.16512-30.49472q0-18.00192 12.32896-30.33088l268.67712-268.32896-268.67712-268.32896q-12.32896-12.32896-12.32896-30.33088 0-18.3296 12.16512-30.49472t30.49472-12.16512q18.00192 0 30.33088 12.32896l268.32896 268.67712 268.32896-268.67712q12.32896-12.32896 30.33088-12.32896z" />
-</svg>
+    <svg class="cross hidden"
+        style="min-width:2vh; min-height: 2vh; width: min(5vh,2vw); height: min(5vh,2vw);vertical-align: middle;fill: red;overflow: hidden;"
+        viewBox="60 60 910 910" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M810.65984 170.65984q18.3296 0 30.49472 12.16512t12.16512 30.49472q0 18.00192-12.32896 30.33088l-268.67712 268.32896 268.67712 268.32896q12.32896 12.32896 12.32896 30.33088 0 18.3296-12.16512 30.49472t-30.49472 12.16512q-18.00192 0-30.33088-12.32896l-268.32896-268.67712-268.32896 268.67712q-12.32896 12.32896-30.33088 12.32896-18.3296 0-30.49472-12.16512t-12.16512-30.49472q0-18.00192 12.32896-30.33088l268.67712-268.32896-268.67712-268.32896q-12.32896-12.32896-12.32896-30.33088 0-18.3296 12.16512-30.49472t30.49472-12.16512q18.00192 0 30.33088 12.32896l268.32896 268.67712 268.32896-268.67712q12.32896-12.32896 30.33088-12.32896z" />
+    </svg>
 </body>
 
 </html>
