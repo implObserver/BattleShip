@@ -2,15 +2,14 @@ import { setListenersForLinks } from "../controllers/listeners/forLinks";
 import { setListenersForCells, setListenersForExitButton, setListenersForPlayButton } from "../controllers/listeners/forPlay";
 import { setListenersforPopups } from "../controllers/listeners/forPopups";
 import { setListenersForShips } from "../controllers/listeners/forShips";
-import { removeHidden, removeNullOpacity, setHidden, setLowOpacity } from "../views/animations/changeVisible";
+import { removeHidden, setHidden, setLowOpacity } from "../views/animations/changeVisible";
 import { viewAccurateHit, viewMissHit } from "../views/nodes/hits";
 import { viewLosePopup, viewWinPopup } from "../views/nodes/popups";
 import { viewProfile } from "../views/nodes/profile";
 import { viewShipyard } from "../views/nodes/shipyard";
-import { hiddenInterfaceBeforeStartPlay, setAiMoveDesign, setKilledShipDesign, setMiniShipyardDesign, setPlayerMoveDesign, viewInterfaceAfterEndGame } from "../views/nodes/ui";
+import { hiddenInterfaceBeforeStartPlay, setAiMoveDesign, setMiniShipyardDesign, setPlayerMoveDesign, viewInterfaceAfterEndGame } from "../views/nodes/ui";
 import { CellHandler } from "./cellHandler";
-import { drawCross, killShipEffect, missEffect, nextMoveEffect } from "./elements/audioEffects";
-import { Cross } from "./elements/templates";
+import { killShipEffect, missEffect } from "./elements/audioEffects";
 import { Profile } from "./player";
 import { TimeManipulators } from "./timeManipulators";
 
@@ -46,7 +45,6 @@ export const Game = () => {
         setDefaultListeners();
         viewDefaulInterfaces();
         gameHandler.fillBoardsToRandomShips();
-        ai.getGameboard().hiddenShips();
     }
 
     const play = () => {

@@ -1,4 +1,3 @@
-import { game } from '../..';
 import { Session, resetSession } from '../../models/session';
 import { viewShip } from '../../views/nodes/ship';
 import { shipDragEnd } from '../ship';

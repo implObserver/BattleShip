@@ -1,9 +1,8 @@
-import { randomIntFromInterval, removeChilds } from '../helper/helper';
+import { randomIntFromInterval } from '../helper/helper';
 import { setLowOpacity } from '../views/animations/changeVisible';
 import { getNode } from '../views/nodes/factory';
-import { setStandartHorizontalShipDesign, setStandartVerticalShipDesign } from '../views/nodes/ship';
+import { resetShipStyle, setDeathStyleOnShip, setStandartHorizontalShipDesign, setStandartVerticalShipDesign } from '../views/nodes/ship';
 import { Deck } from './cell';
-import { Cross } from './elements/templates';
 import { ShipWaterAreas } from './waterAreas';
 
 export const Ship = (length, player, type) => {
@@ -151,8 +150,7 @@ export const Ship = (length, player, type) => {
     };
 
     const resetBody = () => {
-        container.style.opacity = '1';
-        container.style.border = 'min(0.1vh, 0.1vw) rgba(0, 0, 255, 1) solid';
+        resetShipStyle(container);
         body.forEach(deck => {
             deck.reset();
         })
@@ -167,8 +165,7 @@ export const Ship = (length, player, type) => {
             setLowOpacity(deck.getCellNode());
             deck.setTheHit();
         })
-        container.style.opacity = '0.3';
-        container.style.border = 'min(0.1vh, 0.1vw) rgba(255, 0, 0, 1) solid';
+        setDeathStyleOnShip(container);
         live = false;
     }
 

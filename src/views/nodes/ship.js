@@ -57,3 +57,13 @@ export const setStandartVerticalShipDesign = (container, length) => {
     container.style.minHeight = `${length * 2}vh`;
     container.style.minWidth = `2vh`;
 }
+
+export const resetShipStyle = (container) => {
+    container.style.opacity = '1';
+    container.style.border = 'min(0.1vh, 0.1vw) rgba(0, 0, 255, 1) solid';
+}
+
+export const setDeathStyleOnShip = (container) => {
+    container.style.opacity = '0.3';
+    container.style.border = 'min(0.1vh, 0.1vw) rgba(255, 0, 0, 1) solid';
+}

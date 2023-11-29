@@ -1,4 +1,4 @@
-import { drawCross, missEffect } from "../../models/elements/audioEffects";
+import { drawCross } from "../../models/elements/audioEffects";
 import { Cross } from "../../models/elements/templates";
 import { removeNullOpacity } from "../animations/changeVisible";
 
@@ -15,13 +15,8 @@ export const viewAccurateHit = (cell) => {
 }
 
 export const appendCrossSvg = (deck) => {
-    let copyCross = document.querySelector('.cross').cloneNode(true);
-    copyCross.classList.remove('hidden');
     let cross = Cross();
+    deck.getCellNode().classList.add('destroyed');
     deck.getCellNode().appendChild(cross.getSvg());
     cross.view();
-    setTimeout(() => {
-        deck.getCellNode().removeChild(cross.getSvg());
-        deck.getCellNode().appendChild(copyCross);
-    }, 500);
 }

@@ -1,5 +1,4 @@
 import { CellHandler } from './cellHandler';
-import { Session } from './session';
 
 export const ShipWaterAreas = (player, ship) => {
     let underTheShip = [];

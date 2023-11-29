@@ -11,7 +11,7 @@
 }
 
 :root {
-    font-size: 1vh;
+    font-size: min(2vh, 2vw);
     --board-width: 0;
     --board-height: 0;
     --cell-size: min(5vh, 2vw);
@@ -23,13 +23,12 @@ html {
 
 .wrapper {
     display: grid;
-    grid-template-rows: min-content min-content min-content;
+    grid-template-rows: min-content 1fr min-content;
     width: 100%;
     height: 100%;
     row-gap: min(2vh, 0.8vw);
     justify-items: center;
     width: min-content;
-    row-gap: 10vh;
 }
 
 span {
@@ -43,6 +42,7 @@ span {
     display: grid;
     grid-template-columns: 1fr 1fr min-content;
     justify-items: center;
+    align-items: center;
     width: 100%;
     height: min-content;
     padding: min(2vh, 0.8vw);
@@ -68,10 +68,12 @@ span {
 
 .main {
     display: grid;
-    width: min-content;
+    width: max-content;
     max-width: inherit;
     justify-items: center;
     justify-content: center;
+    align-items: center;
+    align-content: center;
 }
 
 .shipyard {
@@ -205,7 +207,8 @@ span {
 }
 
 .destroyed {
-    background-color: rgba(247, 190, 190, 0.473) !important;
+    display: grid;
+    border: 1px red solid;
 }
 
 .live {}
@@ -247,6 +250,12 @@ span {
     z-index: 999;
 }
 
+.deck>svg {
+    display: grid;
+    width: 100%;
+    height: 100%;
+}
+
 .mini-ship {
     height: min-content !important;
     width: min-content !important;
@@ -276,6 +285,7 @@ span {
     border-bottom: 1px dotted blue;
     color: blue;
     cursor: pointer;
+
 }
 
 .random-mode:hover,
@@ -293,6 +303,7 @@ span {
 
 .timer>svg {
     display: grid;
+
     width: 100vw;
 }
 
@@ -351,12 +362,22 @@ span {
 
     .main {
         grid-template-rows: min-content min-content;
+
+    }
+
+    .shipyard {
+        justify-self: center;
+        padding-bottom: 2vh;
     }
 }
 
 @media screen and (min-aspect-ratio: 1/1) {
     .main {
         grid-template-columns: min-content min-content;
+    }
+
+    .ai-board {
+        align-self: start;
     }
 }
 

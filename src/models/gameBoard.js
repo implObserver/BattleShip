@@ -1,7 +1,5 @@
-import { player1 } from '..';
-import { randomIntFromInterval } from '../helper/helper';
-import { setHidden, setLowOpacity, setNullOpacity } from '../views/animations/changeVisible';
-import { viewShip, viewShipOnRandomCell } from '../views/nodes/ship';
+import { setNullOpacity } from '../views/animations/changeVisible';
+import { viewShipOnRandomCell } from '../views/nodes/ship';
 import { MarineSector } from './cell';
 import { Config } from './gameConfig';
 

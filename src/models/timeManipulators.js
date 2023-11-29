@@ -1,5 +1,4 @@
 import { game } from "..";
-import { removeChilds } from "../helper/helper";
 import { getRandomCell } from "../views/nodes/ship";
 import { timerEffect } from "./elements/audioEffects";
 import { Timer } from "./elements/templates";
