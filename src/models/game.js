@@ -45,6 +45,7 @@ export const Game = () => {
         setDefaultListeners();
         viewDefaulInterfaces();
         gameHandler.fillBoardsToRandomShips();
+        ai.getGameboard().hiddenShips();
     }
 
     const play = () => {
