@@ -1,17 +1,31 @@
-import { setListenersForLinks } from "../controllers/listeners/forLinks";
-import { setListenersForCells, setListenersForExitButton, setListenersForPlayButton } from "../controllers/listeners/forPlay";
-import { setListenersforPopups } from "../controllers/listeners/forPopups";
-import { setListenersForShips } from "../controllers/listeners/forShips";
-import { removeHidden, setHidden, setLowOpacity } from "../views/animations/changeVisible";
-import { viewAccurateHit, viewMissHit } from "../views/nodes/hits";
-import { viewLosePopup, viewWinPopup } from "../views/nodes/popups";
-import { viewProfile } from "../views/nodes/profile";
-import { viewShipyard } from "../views/nodes/shipyard";
-import { hiddenInterfaceBeforeStartPlay, setAiMoveDesign, setMiniShipyardDesign, setPlayerMoveDesign, viewInterfaceAfterEndGame } from "../views/nodes/ui";
-import { CellHandler } from "./cellHandler";
-import { killShipEffect, missEffect } from "./elements/audioEffects";
-import { Profile } from "./player";
-import { TimeManipulators } from "./timeManipulators";
+import { setListenersForLinks } from '../controllers/listeners/forLinks';
+import {
+    setListenersForCells,
+    setListenersForExitButton,
+    setListenersForPlayButton,
+} from '../controllers/listeners/forPlay';
+import { setListenersforPopups } from '../controllers/listeners/forPopups';
+import { setListenersForShips } from '../controllers/listeners/forShips';
+import {
+    removeHidden,
+    setHidden,
+    setLowOpacity,
+} from '../views/animations/changeVisible';
+import { viewAccurateHit, viewMissHit } from '../views/nodes/hits';
+import { viewLosePopup, viewWinPopup } from '../views/nodes/popups';
+import { viewProfile } from '../views/nodes/profile';
+import { viewShipyard } from '../views/nodes/shipyard';
+import {
+    hiddenInterfaceBeforeStartPlay,
+    setAiMoveDesign,
+    setMiniShipyardDesign,
+    setPlayerMoveDesign,
+    viewInterfaceAfterEndGame,
+} from '../views/nodes/ui';
+import { CellHandler } from './cellHandler';
+import { killShipEffect, missEffect } from './elements/audioEffects';
+import { Profile } from './player';
+import { TimeManipulators } from './timeManipulators';
 
 export const Game = () => {
     let player = Profile(1, 'Player', 'player-board', '.ai-mini-shipyard');
@@ -25,9 +39,9 @@ export const Game = () => {
         viewShipyard(player.getShipyard());
         viewShipyard(player.getMiniShipyard());
         viewShipyard(ai.getMiniShipyard());
-        setMiniShipyardDesign(player.getMiniShipyard())
-        setMiniShipyardDesign(ai.getMiniShipyard())
-    }
+        setMiniShipyardDesign(player.getMiniShipyard());
+        setMiniShipyardDesign(ai.getMiniShipyard());
+    };
 
     const setDefaultListeners = () => {
         setListenersForShips(player.getShipyard().getAllShips());
@@ -35,60 +49,60 @@ export const Game = () => {
         setListenersForPlayButton();
         setListenersForExitButton();
         setListenersforPopups();
-    }
+    };
 
     const setGamePlayListeners = () => {
         setListenersForCells();
-    }
+    };
 
     const start = () => {
         setDefaultListeners();
         viewDefaulInterfaces();
         gameHandler.fillBoardsToRandomShips();
         ai.getGameboard().hiddenShips();
-    }
+    };
 
     const play = () => {
         gameHandler.setDefaultSettings();
         setGamePlayListeners();
         hiddenInterfaceBeforeStartPlay();
         playGameState();
-        removeHidden(ai.getMiniShipyard().getNode())
-        removeHidden(player.getMiniShipyard().getNode())
+        removeHidden(ai.getMiniShipyard().getNode());
+        removeHidden(player.getMiniShipyard().getNode());
         gameHandler.playerMove();
         timeManipulators.setTimeOfTheMove();
-        setMiniShipyardDesign(player.getMiniShipyard())
-        setMiniShipyardDesign(ai.getMiniShipyard())
-    }
+        setMiniShipyardDesign(player.getMiniShipyard());
+        setMiniShipyardDesign(ai.getMiniShipyard());
+    };
 
     const end = () => {
-        setHidden(ai.getMiniShipyard().getNode())
-        setHidden(player.getMiniShipyard().getNode())
-        ai.getMiniShipyard().reset()
-        player.getMiniShipyard().reset()
+        setHidden(ai.getMiniShipyard().getNode());
+        setHidden(player.getMiniShipyard().getNode());
+        ai.getMiniShipyard().reset();
+        player.getMiniShipyard().reset();
         timeManipulators.reset();
         viewInterfaceAfterEndGame();
         endGameState();
-    }
+    };
 
     const playGameState = () => {
-        document.querySelector('.x-axis').classList.add('correct')
+        document.querySelector('.x-axis').classList.add('correct');
         player.getGameboard().blockShips();
-    }
+    };
 
     const endGameState = () => {
-        document.querySelector('.x-axis').classList.remove('correct')
+        document.querySelector('.x-axis').classList.remove('correct');
         ai.getGameboard().block();
         ai.getGameboard().reset();
         player.getGameboard().unblockShips();
         player.getGameboard().reset();
         gameHandler.fillBoardsToRandomShips();
         ai.getGameboard().hiddenShips();
-        setAiMoveDesign(ai, player)
-    }
+        setAiMoveDesign(ai, player);
+    };
 
-    return { start, play, end, ai, player, gameHandler }
-}
+    return { start, play, end, ai, player, gameHandler };
+};
 
 const GameHandler = (ai, player, timeManipulators) => {
     let move;
@@ -99,11 +113,11 @@ const GameHandler = (ai, player, timeManipulators) => {
         move = 'player';
         playerCells = [...player.getGameboard().getUnstructedContainer()];
         aiCells = [...ai.getGameboard().getUnstructedContainer()];
-    }
+    };
 
     const getActivePlayer = () => {
         return move === 'ai' ? ai : player;
-    }
+    };
 
     const switchMove = () => {
         timeManipulators.reset();
@@ -118,28 +132,28 @@ const GameHandler = (ai, player, timeManipulators) => {
             move = 'ai';
             aiMove();
         }
-    }
+    };
 
     const isEndGame = () => {
         let isEnd = isPlayerLose(player) || isPlayerLose(ai);
         return isEnd;
-    }
+    };
 
     const isPlayerLose = (player) => {
         let isLose = true;
         const ships = player.getShipyard().getAllShips();
-        ships.forEach(ship => {
+        ships.forEach((ship) => {
             if (ship.isLive()) {
                 isLose = false;
             }
-        })
+        });
         return isLose;
-    }
+    };
 
     const playerMove = () => {
         ai.getGameboard().unblock();
         setPlayerMoveDesign(ai, player);
-    }
+    };
 
     const checkCell = (cell) => {
         if (aiCells.includes(cell)) {
@@ -148,13 +162,13 @@ const GameHandler = (ai, player, timeManipulators) => {
             takeHit(aiCells.splice(index, 1)[0]);
             timeManipulators.setTimeBetweenMoves(500);
         }
-    }
+    };
 
     const aiMove = () => {
         ai.getGameboard().block();
         setAiMoveDesign(ai, player);
         timeManipulators.setAiSpeedOfTought(playerCells);
-    }
+    };
 
     const takeHit = (cell) => {
         const ship = cell.getOccupant();
@@ -171,7 +185,7 @@ const GameHandler = (ai, player, timeManipulators) => {
                 move = move === 'ai' ? 'player' : 'ai';
             }, 500);
         }
-    }
+    };
 
     const checkLiveShip = (ship) => {
         if (!ship.isLive()) {
@@ -179,21 +193,21 @@ const GameHandler = (ai, player, timeManipulators) => {
             ship.kill();
             let miniShip = getMiniShip(ship);
             miniShip.kill();
-            hitAllAreaAroundShip(ship)
+            hitAllAreaAroundShip(ship);
         }
         return ship.isLive();
-    }
+    };
 
     const hitAllAreaAroundShip = (ship) => {
         const area = ship.getWaterAreas().getAreaAroundTheShip();
-        area.forEach(cell => {
+        area.forEach((cell) => {
             if (!cell.isHit()) {
                 setLowOpacity(cell.getCellNode());
             }
             viewMissHit(cell);
             removeCell(cell);
         });
-    }
+    };
 
     const removeCell = (cell) => {
         let cells = move === 'ai' ? playerCells : aiCells;
@@ -201,7 +215,7 @@ const GameHandler = (ai, player, timeManipulators) => {
         if (index > -1) {
             cells.splice(index, 1);
         }
-    }
+    };
 
     const hitAllDiags = (hitCell) => {
         const handler = CellHandler();
@@ -210,7 +224,7 @@ const GameHandler = (ai, player, timeManipulators) => {
         const opponent = move === 'ai' ? player : ai;
         const parent = opponent.getGameboard().getStructedContainer();
         const cells = handler.getDiads(x, y, parent);
-        cells.forEach(cell => {
+        cells.forEach((cell) => {
             if (cell !== hitCell) {
                 if (!cell.isHit()) {
                     setLowOpacity(cell.getCellNode());
@@ -219,7 +233,7 @@ const GameHandler = (ai, player, timeManipulators) => {
                 removeCell(cell);
             }
         });
-    }
+    };
 
     const getMiniShip = (ship) => {
         const type = ship.getType();
@@ -230,16 +244,49 @@ const GameHandler = (ai, player, timeManipulators) => {
                 return ships[i];
             }
         }
-    }
+    };
 
     const fillBoardsToRandomShips = () => {
         ai.getGameboard().randomFillingOfShips();
         player.getGameboard().randomFillingOfShips();
-    }
+    };
 
     const openPopup = () => {
-        move === 'player' ? viewLosePopup() : viewWinPopup()
+        move === 'player' ? viewLosePopup() : viewWinPopup();
+    };
+
+    return {
+        checkCell,
+        playerMove,
+        setDefaultSettings,
+        switchMove,
+        takeHit,
+        isEndGame,
+        fillBoardsToRandomShips,
+    };
+};
+
+
+export const Coordinates = (() => {
+    let singleTone = 0;
+    let x = 0;
+    let y = 0;
+
+    const setCoordinates = (nx, ny) => {
+        if (singleTone === 0) {
+            singleTone = 1;
+            x = nx;
+            y = ny;
+        }
     }
 
-    return { checkCell, playerMove, setDefaultSettings, switchMove, takeHit, isEndGame, fillBoardsToRandomShips };
-}
+    const reset = () => {
+        singleTone = 0;
+    }
+
+    const getXY = () => {
+        return { x, y };
+    }
+
+    return { setCoordinates, getXY, reset };
+})();

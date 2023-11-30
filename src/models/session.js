@@ -5,7 +5,14 @@ export const Session = (() => {
     let currentElement = null;
     let choisedCell = null;
     let manualMode = false;
-    return { manualMode, activeShip, index, doubleIndex, currentElement, choisedCell };
+    return {
+        manualMode,
+        activeShip,
+        index,
+        doubleIndex,
+        currentElement,
+        choisedCell,
+    };
 })();
 
 export const resetSession = () => {

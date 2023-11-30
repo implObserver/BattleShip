@@ -6,6 +6,8 @@ export const shipDragEnd = () => {
     let isMoveable = false;
     let isAlterMovable = false;
     let body = Session.activeShip.getBody();
+    console.log(Session.currentElement)
+
     if (Session.currentElement !== null) {
         isMoveable = Session.currentElement.classList.contains(`marine-sector`);
         isAlterMovable = Session.currentElement.classList.contains(`deck`);
@@ -55,6 +57,7 @@ export const shipDragEnd = () => {
 };
 
 const addShipOnBoard = (index, y, x) => {
+    console.log('bbbcxvxcxcx')
     let data = getData(index, y, x);
     return viewShipOnBoard(data);
 };

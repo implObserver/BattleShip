@@ -1,8 +1,7 @@
-import { game } from "..";
-import { getRandomCell } from "../views/nodes/ship";
-import { timerEffect } from "./elements/audioEffects";
-import { Timer } from "./elements/templates";
-
+import { game } from '..';
+import { getRandomCell } from '../views/nodes/ship';
+import { timerEffect } from './elements/audioEffects';
+import { Timer } from './elements/templates';
 
 export const TimeManipulators = () => {
     let timeOfTheMove;
@@ -17,13 +16,13 @@ export const TimeManipulators = () => {
             game.gameHandler.takeHit(getRandomCell(cells));
             setTimeBetweenMoves(1000);
         }, 1000);
-    }
+    };
 
     const setTimeBetweenMoves = (timeout) => {
         timeBetweenMoves = setTimeout(() => {
             game.gameHandler.switchMove();
         }, timeout);
-    }
+    };
 
     const setTimeOfTheMove = () => {
         timer.view();
@@ -33,7 +32,7 @@ export const TimeManipulators = () => {
         alarm = setTimeout(() => {
             timerEffect.play();
         }, 10000);
-    }
+    };
 
     const reset = () => {
         timer.reset();
@@ -41,7 +40,7 @@ export const TimeManipulators = () => {
         clearTimeout(timeBetweenMoves);
         clearTimeout(alarm);
         clearInterval(timeOfTheMove);
-    }
+    };
 
-    return { setAiSpeedOfTought, setTimeBetweenMoves, setTimeOfTheMove, reset }
-}
+    return { setAiSpeedOfTought, setTimeBetweenMoves, setTimeOfTheMove, reset };
+};

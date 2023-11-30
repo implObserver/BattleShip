@@ -18,7 +18,10 @@ export const Profile = (id, name, nodeId, miniShipyardId) => {
 
     let gameboard = Gameboard(nodeId, prototype);
     let shipyard = Shipyard(prototype);
-    let miniShipyard = Shipyard(prototype, document.querySelector(miniShipyardId));
+    let miniShipyard = Shipyard(
+        prototype,
+        document.querySelector(miniShipyardId),
+    );
 
     const getGameboard = () => {
         return gameboard;
@@ -30,7 +33,11 @@ export const Profile = (id, name, nodeId, miniShipyardId) => {
 
     const getMiniShipyard = () => {
         return miniShipyard;
-    }
+    };
 
-    return Object.assign(prototype, { getGameboard, getShipyard, getMiniShipyard });
+    return Object.assign(prototype, {
+        getGameboard,
+        getShipyard,
+        getMiniShipyard,
+    });
 };

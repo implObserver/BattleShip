@@ -4,7 +4,7 @@ export const CrossAttributes = (() => {
         { name: 'stroke-width', val: '5%' },
         { name: 'stroke-linecap', val: 'round' },
         { name: 'stroke-dasharray', val: '120%' },
-        { name: 'stroke-dashoffset', val: '120%' }
+        { name: 'stroke-dashoffset', val: '120%' },
     ];
     const leftDiag = [
         { name: 'x1', val: '10%' },
@@ -32,6 +32,6 @@ export const HorizontalLine = (() => {
         { name: 'y1', val: '0vw' },
         { name: 'x2', val: '100vw' },
         { name: 'y2', val: '0vw' },
-    ]
+    ];
     return { horizontal };
 })();

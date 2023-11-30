@@ -1,112 +1,126 @@
 <!doctype html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>BattleShip</title>
+    <script defer src="runtime.bundle.js"></script><script defer src="index.bundle.js"></script></head>
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BattleShip</title>
-<script defer src="runtime.bundle.js"></script><script defer src="index.bundle.js"></script></head>
+    <body>
+        <div class="wrapper">
+            <div class="header">
+                <div class="title">
+                    <span>Морской бой</span>
+                </div>
+                <div class="tips"><span>Разместите корабли</span></div>
+                <div class="exit hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path
+                            d="M13.34,8.17C12.41,8.17 11.65,7.4 11.65,6.47A1.69,1.69 0 0,1 13.34,4.78C14.28,4.78 15.04,5.54 15.04,6.47C15.04,7.4 14.28,8.17 13.34,8.17M10.3,19.93L4.37,18.75L4.71,17.05L8.86,17.9L10.21,11.04L8.69,11.64V14.5H7V10.54L11.4,8.67L12.07,8.59C12.67,8.59 13.17,8.93 13.5,9.44L14.36,10.79C15.04,12 16.39,12.82 18,12.82V14.5C16.14,14.5 14.44,13.67 13.34,12.4L12.84,14.94L14.61,16.63V23H12.92V17.9L11.14,16.21L10.3,19.93M21,23H19V3H6V16.11L4,15.69V1H21V23M6,23H4V19.78L6,20.2V23Z"
+                        />
+                    </svg>
+                </div>
+            </div>
 
-<body>
-    <div class="wrapper">
-        <div class="header">
-            <div class="title">
-                <span>Морской бой</span>
+            <div class="main">
+                <div class="shipyard hidden">
+                    <div class="dock fregats"></div>
+                    <div class="dock caravels"></div>
+                    <div class="dock drakkars"></div>
+                    <div class="dock boats"></div>
+                </div>
+
+                <div class="player-board board__axis-wrapper">
+                    <div class="board-wrapper">
+                        <div class="player-x x-axis"></div>
+                        <div class="y-axis"></div>
+                        <div class="board"></div>
+                        <div class="player-mini-shipyard hidden">
+                            <div class="dock fregats"></div>
+                            <div class="dock caravels"></div>
+                            <div class="dock drakkars"></div>
+                            <div class="dock boats"></div>
+                        </div>
+                    </div>
+                    <div class="marker">
+                        <span>Ваше поле</span>
+                    </div>
+                    <div class="footer">
+                        <div class="random-mode">
+                            <span>Случайным образом</span>
+                        </div>
+                        <div class="manual-mode">
+                            <span>С чистого листа</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ai-board board__axis-wrapper">
+                    <div class="board-wrapper">
+                        <div class="ai-x x-axis low-opacity"></div>
+                        <div class="y-axis low-opacity"></div>
+                        <div class="board low-opacity"></div>
+                        <div class="play">
+                            <svg
+                                class="play-svg"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="rgba(255, 251, 219, 0.726)"
+                                viewBox="0 0 24 24"
+                                stroke="rgba(119, 202, 41, 0.726)"
+                            >
+                                <path d="M8,5.14V19.14L19,12.14L8,5.14Z" />
+                            </svg>
+                        </div>
+                        <div class="ai-mini-shipyard hidden">
+                            <div class="dock fregats"></div>
+                            <div class="dock caravels"></div>
+                            <div class="dock drakkars"></div>
+                            <div class="dock boats"></div>
+                        </div>
+                    </div>
+                    <div class="marker">
+                        <span>Поле противника</span>
+                    </div>
+                </div>
             </div>
-            <div class="tips"><span>Разместите корабли</span></div>
-            <div class="exit hidden">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path
-                        d="M13.34,8.17C12.41,8.17 11.65,7.4 11.65,6.47A1.69,1.69 0 0,1 13.34,4.78C14.28,4.78 15.04,5.54 15.04,6.47C15.04,7.4 14.28,8.17 13.34,8.17M10.3,19.93L4.37,18.75L4.71,17.05L8.86,17.9L10.21,11.04L8.69,11.64V14.5H7V10.54L11.4,8.67L12.07,8.59C12.67,8.59 13.17,8.93 13.5,9.44L14.36,10.79C15.04,12 16.39,12.82 18,12.82V14.5C16.14,14.5 14.44,13.67 13.34,12.4L12.84,14.94L14.61,16.63V23H12.92V17.9L11.14,16.21L10.3,19.93M21,23H19V3H6V16.11L4,15.69V1H21V23M6,23H4V19.78L6,20.2V23Z" />
-                </svg>
-            </div>
+            <div class="timer"></div>
         </div>
 
-        <div class="main">
-            <div class="shipyard hidden">
-                <div class="dock fregats"></div>
-                <div class="dock caravels"></div>
-                <div class="dock drakkars"></div>
-                <div class="dock boats"></div>
-            </div>
-
-            <div class="player-board board__axis-wrapper">
-                <div class="board-wrapper">
-                    <div class="player-x x-axis"></div>
-                    <div class="y-axis"></div>
-                    <div class="board"></div>
-                    <div class="player-mini-shipyard hidden">
-                        <div class="dock fregats"></div>
-                        <div class="dock caravels"></div>
-                        <div class="dock drakkars"></div>
-                        <div class="dock boats"></div>
+        <div class="popup-win popup">
+            <div class="win">
+                <div class="text">YOU WIN!</div>
+                <div class="gif-container">
+                    <div class="gif">
+                        <iframe
+                            src="https://giphy.com/embed/gHcTlutP096ZPYrr4n"
+                            width="100%"
+                            height="100%"
+                            style="position: absolute"
+                            frameborder="0"
+                            class="giphy-embed"
+                            allowfullscreen
+                        ></iframe>
                     </div>
-                </div>
-                <div class="marker">
-                    <span>Ваше поле</span>
-                </div>
-                <div class="footer">
-                    <div class="random-mode">
-                        <span>Случайным образом</span>
-                    </div>
-                    <div class="manual-mode">
-                        <span>С чистого листа</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="ai-board board__axis-wrapper">
-                <div class="board-wrapper">
-                    <div class="ai-x x-axis low-opacity"></div>
-                    <div class="y-axis low-opacity"></div>
-                    <div class="board low-opacity"></div>
-                    <div class="play">
-                        <svg class="play-svg" xmlns="http://www.w3.org/2000/svg" fill="rgba(255, 251, 219, 0.726)"
-                            viewBox="0 0 24 24" stroke="rgba(119, 202, 41, 0.726)">
-                            <path d="M8,5.14V19.14L19,12.14L8,5.14Z" />
-                        </svg>
-                    </div>
-                    <div class="ai-mini-shipyard hidden">
-                        <div class="dock fregats"></div>
-                        <div class="dock caravels"></div>
-                        <div class="dock drakkars"></div>
-                        <div class="dock boats"></div>
-                    </div>
-                </div>
-                <div class="marker">
-                    <span>Поле противника</span>
-                </div>
-            </div>
-        </div>
-        <div class="timer"></div>
-    </div>
-
-    <div class="popup-win popup">
-        <div class="win">
-            <div class="text">
-                YOU WIN!
-            </div>
-            <div class="gif-container">
-                <div class="gif">
-                    <iframe src="https://giphy.com/embed/gHcTlutP096ZPYrr4n" width="100%" height="100%"
-                        style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="popup-lose popup">
-        <div class="lose">
-            <div class="text">
-                YOU LOSE!
-            </div>
-            <div class="gif-container">
-                <div class="gif">
-                    <iframe src="https://giphy.com/embed/l0HlzcomwlgxXt5nO" width="100%" height="100%"
-                        style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
                 </div>
             </div>
         </div>
-    </div>
-</body>
-
+        <div class="popup-lose popup">
+            <div class="lose">
+                <div class="text">YOU LOSE!</div>
+                <div class="gif-container">
+                    <div class="gif">
+                        <iframe
+                            src="https://giphy.com/embed/l0HlzcomwlgxXt5nO"
+                            width="100%"
+                            height="100%"
+                            style="position: absolute"
+                            frameborder="0"
+                            class="giphy-embed"
+                            allowfullscreen
+                        ></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>

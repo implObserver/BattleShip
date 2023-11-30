@@ -85,7 +85,7 @@ export const CellHandler = () => {
         cells.push(getDiag4(x, y, parent));
         cells = cells.filter((cell) => cell !== undefined);
         return cells;
-    }
+    };
 
     return { getCellAroundArea, getDiads };
 };

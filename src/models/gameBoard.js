@@ -47,34 +47,34 @@ export const Gameboard = (name, player) => {
     };
 
     const blockShips = () => {
-        node.querySelectorAll('.ship').forEach(ship => {
+        node.querySelectorAll('.ship').forEach((ship) => {
             ship.classList.add('block');
         });
-    }
+    };
 
     const unblockShips = () => {
-        node.querySelectorAll('.ship').forEach(ship => {
+        node.querySelectorAll('.ship').forEach((ship) => {
             ship.classList.remove('block');
         });
-    }
+    };
 
     const hiddenShips = () => {
         const board = node.querySelector('.board');
-        board.querySelectorAll('.ship').forEach(ship => {
+        board.querySelectorAll('.ship').forEach((ship) => {
             ship.style.border = '0px blue solid';
         });
-        board.querySelectorAll('.deck').forEach(deck => {
-            setNullOpacity(deck)
+        board.querySelectorAll('.deck').forEach((deck) => {
+            setNullOpacity(deck);
         });
-    }
+    };
 
     const block = () => {
         node.querySelector('.board').classList.add('block');
-    }
+    };
 
     const unblock = () => {
         node.querySelector('.board').classList.remove('block');
-    }
+    };
 
     return {
         randomFillingOfShips,
@@ -88,7 +88,7 @@ export const Gameboard = (name, player) => {
         unblockShips,
         hiddenShips,
         block,
-        unblock
+        unblock,
     };
 };
 

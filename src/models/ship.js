@@ -1,7 +1,12 @@
 import { randomIntFromInterval } from '../helper/helper';
 import { setLowOpacity } from '../views/animations/changeVisible';
 import { getNode } from '../views/nodes/factory';
-import { resetShipStyle, setDeathStyleOnShip, setStandartHorizontalShipDesign, setStandartVerticalShipDesign } from '../views/nodes/ship';
+import {
+    resetShipStyle,
+    setDeathStyleOnShip,
+    setStandartHorizontalShipDesign,
+    setStandartVerticalShipDesign,
+} from '../views/nodes/ship';
 import { Deck } from './cell';
 import { ShipWaterAreas } from './waterAreas';
 
@@ -16,11 +21,11 @@ export const Ship = (length, player, type) => {
 
     const setYourself = (thisShip) => {
         ship = thisShip;
-    }
+    };
 
     const getYourself = () => {
         return ship;
-    }
+    };
 
     const fillContainer = () => {
         for (let i = 0; i < length; i++) {
@@ -65,7 +70,7 @@ export const Ship = (length, player, type) => {
             body[i].setXY(xy.x, xy.y);
             area[i].setLinkedDeck(body[i]);
         }
-    }
+    };
 
     const getWaterArea = (head) => {
         let board = getBoard().getStructedContainer();
@@ -151,27 +156,27 @@ export const Ship = (length, player, type) => {
 
     const resetBody = () => {
         resetShipStyle(container);
-        body.forEach(deck => {
+        body.forEach((deck) => {
             deck.reset();
-        })
-    }
+        });
+    };
 
     const getType = () => {
         return type;
-    }
+    };
 
     const kill = () => {
-        body.forEach(deck => {
+        body.forEach((deck) => {
             setLowOpacity(deck.getCellNode());
             deck.setTheHit();
-        })
+        });
         setDeathStyleOnShip(container);
         live = false;
-    }
+    };
 
     const getWaterAreas = () => {
-        return shipWaterAreas
-    }
+        return shipWaterAreas;
+    };
 
     fillContainer();
 
@@ -195,7 +200,7 @@ export const Ship = (length, player, type) => {
         getYourself,
         getType,
         kill,
-        getWaterAreas
+        getWaterAreas,
     };
 };
 

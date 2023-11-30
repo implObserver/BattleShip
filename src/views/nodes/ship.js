@@ -1,5 +1,6 @@
 import { game } from '../..';
 import { randomIntFromInterval } from '../../helper/helper';
+import { Coordinates } from '../../models/game';
 import { Session } from '../../models/session';
 import { removeHidden, setHidden } from '../animations/changeVisible';
 
@@ -47,7 +48,7 @@ export const setStandartHorizontalShipDesign = (container, length) => {
     container.style.height = `min(5vh,2vw)`;
     container.style.minHeight = `2vh`;
     container.style.minWidth = `${length * 2}vh`;
-}
+};
 
 export const setStandartVerticalShipDesign = (container, length) => {
     container.classList.remove('horizontal');
@@ -56,14 +57,22 @@ export const setStandartVerticalShipDesign = (container, length) => {
     container.style.width = `min(5vh,2vw)`;
     container.style.minHeight = `${length * 2}vh`;
     container.style.minWidth = `2vh`;
-}
+};
 
 export const resetShipStyle = (container) => {
     container.style.opacity = '1';
     container.style.border = 'min(0.1vh, 0.1vw) rgba(0, 0, 255, 1) solid';
-}
+};
 
 export const setDeathStyleOnShip = (container) => {
     container.style.opacity = '0.3';
     container.style.border = 'min(0.1vh, 0.1vw) rgba(255, 0, 0, 1) solid';
+};
+
+
+export const viewDragShipForMobile = (cursorX, cursorY, container) => {
+    let x = cursorX - Coordinates.getXY().x;
+    let y = cursorY - Coordinates.getXY().y;
+    container.style.setProperty('--y', `${y}px`);
+    container.style.setProperty('--x', `${x}px`);
 }

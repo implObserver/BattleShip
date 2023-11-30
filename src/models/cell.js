@@ -10,11 +10,11 @@ export const Cell = (x = -1, y = -1, name = 'cell') => {
 
     const setLinkedDeck = (deck) => {
         linkedDeck = deck;
-    }
+    };
 
     const getLinkedDeck = () => {
         return linkedDeck;
-    }
+    };
 
     const setTheHit = () => {
         hit = true;
@@ -51,7 +51,7 @@ export const Cell = (x = -1, y = -1, name = 'cell') => {
         node.classList.remove('destroyed');
         removeChilds(node);
         setNormalOpacity(node);
-    }
+    };
 
     return {
         setTheHit,
@@ -63,7 +63,7 @@ export const Cell = (x = -1, y = -1, name = 'cell') => {
         setXY,
         setLinkedDeck,
         getLinkedDeck,
-        reset
+        reset,
     };
 };
 

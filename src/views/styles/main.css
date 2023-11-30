@@ -94,10 +94,6 @@ span {
     height: min-content;
 }
 
-.selected {
-    opacity: 0.01 !important;
-}
-
 .board__axis-wrapper {
     display: grid;
     grid-template-rows: 1fr min-content;
@@ -127,8 +123,8 @@ span {
     width: min-content;
     height: min-content;
     justify-self: end;
-    grid-template-columns: repeat(var(--board-width), max(var(--cell-size), 2vh));
-
+    grid-template-columns: repeat(var(--board-width),
+            max(var(--cell-size), 2vh));
 }
 
 .y-axis {
@@ -144,7 +140,6 @@ span {
     grid-template-columns: repeat(var(--board-width), 2fr);
     grid-template-rows: repeat(var(--board-height), 2fr);
     border: min(0.5vh, 0.2vw) rgba(0, 0, 255, 0.2) solid;
-
 }
 
 .play {
@@ -169,7 +164,6 @@ span {
     row-gap: min(2vh, 0.8vw);
     padding: min(3vh, 1.2vw);
 }
-
 
 .low-opacity {
     opacity: 0.4;
@@ -226,6 +220,9 @@ span {
 }
 
 .ship {
+    --x: 0px;
+    --y: 0px;
+    transform: translate(var(--x), var(--y));
     display: grid;
     align-content: center;
     justify-content: center;
@@ -235,6 +232,8 @@ span {
     width: min-content;
     height: min-content;
 }
+
+.draggable {}
 
 .horizontal {
     grid-template-columns: repeat(4, 2fr);
@@ -285,7 +284,6 @@ span {
     border-bottom: 1px dotted blue;
     color: blue;
     cursor: pointer;
-
 }
 
 .random-mode:hover,
@@ -358,11 +356,13 @@ span {
     pointer-events: none;
 }
 
-@media screen and (max-aspect-ratio: 1.00001/1) {
+.selected {
+    opacity: 0.01 !important;
+}
 
+@media screen and (max-aspect-ratio: 1.00001/1) {
     .main {
         grid-template-rows: min-content min-content;
-
     }
 
     .shipyard {
@@ -382,5 +382,5 @@ span {
 }
 
 .cross {
-    border: 1px red solid
+    border: 1px red solid;
 }

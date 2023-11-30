@@ -1,5 +1,5 @@
 import { Cell } from '../models/cell';
-import { getCell } from '../views/nodes/cell';
+import { getNode } from '../views/nodes/factory';
 
 describe('cell function', () => {
     let testCell;
@@ -14,7 +14,7 @@ describe('cell function', () => {
     });
 
     test('check node', () => {
-        let node = getCell();
+        let node = getNode('cell');
         expect(testCell.getCellNode()).toEqual(node);
     });
 });

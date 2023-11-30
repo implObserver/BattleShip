@@ -1,7 +1,10 @@
 import { Config } from './gameConfig';
 import { Boat, Caravel, Drakkar, Fregat } from './ship';
 
-export const Shipyard = (player, node = document.querySelector('.shipyard')) => {
+export const Shipyard = (
+    player,
+    node = document.querySelector('.shipyard'),
+) => {
     const fregats = Dock(Config.Elements.numberOf.fregates, 'Fregat', player);
     const caravels = Dock(Config.Elements.numberOf.caravels, 'Caravel', player);
     const drakkars = Dock(Config.Elements.numberOf.drakkars, 'Drakkar', player);
@@ -53,7 +56,7 @@ export const Shipyard = (player, node = document.querySelector('.shipyard')) => 
 
     const getNode = () => {
         return node;
-    }
+    };
 
     const isEmpty = () => {
         let launchedShips = node.querySelectorAll('.ship');
@@ -76,7 +79,7 @@ export const Shipyard = (player, node = document.querySelector('.shipyard')) => 
         getDockWithCaravels,
         getDockWithDrakkars,
         getDockWithBoats,
-        getNode
+        getNode,
     };
 };
 

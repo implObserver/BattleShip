@@ -7,7 +7,7 @@ import winSound from '../../views/audio/win.mp3';
 import loseSound from '../../views/audio/lose.mp3';
 
 export const drawCross = (() => {
-    let audio = new Audio(crossAudio)
+    let audio = new Audio(crossAudio);
     audio.playbackRate = 3;
     audio.volume = 0.5;
     return audio;
