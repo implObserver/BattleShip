@@ -231,10 +231,7 @@ span {
     border: min(0.1vh, 0.1vw) rgba(0, 0, 255, 1) solid;
     width: min-content;
     height: min-content;
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
+    touch-action: none;
 }
 
 .draggable {}
