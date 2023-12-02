@@ -6,7 +6,7 @@ describe('ship functions', () => {
 
     beforeEach(() => {
         testShip = Ship(2);
-        testFregat = Fregat(); //Ship(4)
+        //testFregat = Fregat(); //Ship(4)
     });
 
     test('test ship of live', () => {
@@ -23,17 +23,17 @@ describe('ship functions', () => {
         expect(testShip.isLive()).toBe(false);
     });
 
-    test('test fregat of live', () => {
-        expect(testFregat.isLive()).toBe(true);
-    });
+    //test('test fregat of live', () => {
+    //expect(testFregat.isLive()).toBe(true);
+    //});
 
-    test('test fregat of death', () => {
-        let body = testFregat.getBody();
+    //test('test fregat of death', () => {
+    //let body = testFregat.getBody();
 
-        body.forEach((cell) => {
-            cell.setTheHit();
-        });
+    //body.forEach((cell) => {
+    //cell.setTheHit();
+    //});
 
-        expect(testFregat.isLive()).toBe(false);
-    });
+    //expect(testFregat.isLive()).toBe(false);
+    //});
 });

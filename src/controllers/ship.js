@@ -6,8 +6,7 @@ export const shipDragEnd = () => {
     let isMoveable = false;
     let isAlterMovable = false;
     let body = Session.activeShip.getBody();
-    console.log(Session.currentElement)
-
+    
     if (Session.currentElement !== null) {
         isMoveable = Session.currentElement.classList.contains(`marine-sector`);
         isAlterMovable = Session.currentElement.classList.contains(`deck`);
