@@ -89,6 +89,7 @@ const Dock = (count, shipBluePrint, player) => {
     const fillDock = (count, shipBluePrint) => {
         for (let i = 0; i < count; i++) {
             const ship = buildShip(shipBluePrint);
+            ship.setYourself(ship);
             ships.push(ship);
         }
     };
